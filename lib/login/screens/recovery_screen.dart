@@ -60,7 +60,7 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                             child: Column(
                               children: [
                                 RichText(
-                                  text: TextSpan(
+                                  text: const TextSpan(
                                     children: [
                                       TextSpan(
                                         text: '¿Has olvidado',
@@ -95,7 +95,7 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Text(
+                                            const Text(
                                               "¿Recuperaste tu cuenta? ",
                                               style: TextStyle(
                                                 fontSize: 16,
@@ -113,7 +113,7 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                                                           LoginScreen()),
                                                 );
                                               },
-                                              child: Text(
+                                              child: const Text(
                                                 "ingresa aqui",
                                                 style: TextStyle(
                                                   fontSize: 16,
@@ -136,7 +136,7 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                                     children: [
                                       Container(
                                         alignment: Alignment.centerLeft,
-                                        child: Text(
+                                        child: const Text(
                                           "CORREO",
                                           style: TextStyle(
                                             fontSize: 20,
@@ -160,8 +160,8 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                                           ),
                                           child: TextFormField(
                                             controller: _emailController,
-                                            style:
-                                                TextStyle(color: Colors.white),
+                                            style: const TextStyle(
+                                                color: Colors.white),
                                             decoration: InputDecoration(
                                               border: InputBorder.none,
                                               hintStyle: TextStyle(
@@ -190,11 +190,11 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                                           foregroundColor:
                                               Colors.black.withOpacity(0.7),
                                           backgroundColor: Colors.white,
-                                          minimumSize: Size(
+                                          minimumSize: const Size(
                                             double.infinity,
                                             50,
                                           ),
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                             horizontal: 16,
                                           ),
                                           shape: const RoundedRectangleBorder(
@@ -206,7 +206,7 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                                         onPressed: () {
                                           onSuccess();
                                         },
-                                        child: Text(
+                                        child: const Text(
                                           'Enviar',
                                           style: TextStyle(fontSize: 18),
                                         ),

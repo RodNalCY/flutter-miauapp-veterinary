@@ -63,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Column(
                               children: [
                                 Container(
-                                  child: Text(
+                                  child: const Text(
                                     "Ingresar",
                                     style: TextStyle(
                                       fontSize: 55,
@@ -83,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Text(
+                                            const Text(
                                               "¿Aún no tienes una cuenta? ",
                                               style: TextStyle(
                                                 fontSize: 16,
@@ -101,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                           RegisterScreen()),
                                                 );
                                               },
-                                              child: Text(
+                                              child: const Text(
                                                 "ingresa aqui",
                                                 style: TextStyle(
                                                   fontSize: 16,
@@ -124,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     children: [
                                       Container(
                                         alignment: Alignment.centerLeft,
-                                        child: Text(
+                                        child: const Text(
                                           "EMAIL",
                                           style: TextStyle(
                                             fontSize: 20,
@@ -165,7 +165,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                       Container(
                                         alignment: Alignment.centerLeft,
-                                        child: Text(
+                                        child: const Text(
                                           "CONTRASEÑA",
                                           style: TextStyle(
                                             fontSize: 20,
@@ -196,7 +196,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   autocorrect: false,
                                                   controller:
                                                       _passwordController,
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: Colors.white),
                                                   keyboardType: TextInputType
                                                       .visiblePassword,
@@ -234,11 +234,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                           foregroundColor:
                                               Colors.black.withOpacity(0.7),
                                           backgroundColor: Colors.white,
-                                          minimumSize: Size(
+                                          minimumSize: const Size(
                                             double.infinity,
                                             50,
                                           ),
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                             horizontal: 16,
                                           ),
                                           shape: const RoundedRectangleBorder(
@@ -250,7 +250,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         onPressed: () {
                                           onSuccess();
                                         },
-                                        child: Text(
+                                        child: const Text(
                                           'Ingresar',
                                           style: TextStyle(fontSize: 18),
                                         ),
@@ -277,7 +277,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                                 RecoveryScreen()),
                                                       );
                                                     },
-                                                    child: Text(
+                                                    child: const Text(
                                                       "¿Olvidaste tu contraseña?",
                                                       style: TextStyle(
                                                         fontSize: 16,
@@ -297,7 +297,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         padding: EdgeInsets.only(top: 40.0),
                                       ),
                                       Container(
-                                        child: Text(
+                                        child: const Text(
                                           "Eres socio",
                                           style: TextStyle(
                                             fontSize: 40,
@@ -313,7 +313,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              Text(
+                                              const Text(
                                                 "Inicia Sesión para socios",
                                                 style: TextStyle(
                                                   fontSize: 16,
@@ -324,7 +324,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
-                                                  Text(
+                                                  const Text(
                                                     "dale click en ",
                                                     style: TextStyle(
                                                       fontSize: 16,
@@ -336,7 +336,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                       // Acción del botón
                                                       print('Botón presionado');
                                                     },
-                                                    child: Text(
+                                                    child: const Text(
                                                       "continuar",
                                                       style: TextStyle(
                                                         fontSize: 16,

@@ -64,7 +64,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   child: Container(
                     width: 10.0,
                     height: 10.0,
-                    margin: EdgeInsets.symmetric(horizontal: 4.0),
+                    margin: const EdgeInsets.symmetric(horizontal: 4.0),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: index == _currentPage ? Colors.blue : Colors.grey,
@@ -75,7 +75,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             ),
           ),
           Container(
-            child: Text(
+            child: const Text(
               "Bienvenid@ a Pet Call",
               style: TextStyle(
                 fontSize: 35,
@@ -111,7 +111,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 MaterialPageRoute(builder: (context) => LoginScreen()),
               );
             },
-            child: Text(
+            child: const Text(
               'Siguiente',
               style: TextStyle(fontSize: 18),
             ),

@@ -67,7 +67,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: Column(
                               children: [
                                 RichText(
-                                  text: TextSpan(
+                                  text: const TextSpan(
                                     children: [
                                       TextSpan(
                                         text: 'Crea una',
@@ -102,7 +102,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            Text(
+                                            const Text(
                                               "¿Ya tienes una cuenta? ",
                                               style: TextStyle(
                                                 fontSize: 16,
@@ -120,7 +120,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                           LoginScreen()),
                                                 );
                                               },
-                                              child: Text(
+                                              child: const Text(
                                                 "ingresa aqui",
                                                 style: TextStyle(
                                                   fontSize: 16,
@@ -143,7 +143,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     children: [
                                       Container(
                                         alignment: Alignment.centerLeft,
-                                        child: Text(
+                                        child: const Text(
                                           "NOMBRE",
                                           style: TextStyle(
                                             fontSize: 20,
@@ -184,7 +184,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       ),
                                       Container(
                                         alignment: Alignment.centerLeft,
-                                        child: Text(
+                                        child: const Text(
                                           "CORREO",
                                           style: TextStyle(
                                             fontSize: 20,
@@ -225,7 +225,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       ),
                                       Container(
                                         alignment: Alignment.centerLeft,
-                                        child: Text(
+                                        child: const Text(
                                           "CONTRASEÑA",
                                           style: TextStyle(
                                             fontSize: 20,
@@ -256,7 +256,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                   autocorrect: false,
                                                   controller:
                                                       _passwordController,
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: Colors.white),
                                                   keyboardType: TextInputType
                                                       .visiblePassword,
@@ -291,7 +291,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       ),
                                       Container(
                                         alignment: Alignment.centerLeft,
-                                        child: Text(
+                                        child: const Text(
                                           "FECHA DE NACIMIENTO",
                                           style: TextStyle(
                                             fontSize: 20,
@@ -318,7 +318,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               Expanded(
                                                 child: TextFormField(
                                                   controller: _dateController,
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       color: Colors.white),
                                                   decoration: InputDecoration(
                                                     border: InputBorder.none,
@@ -337,7 +337,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                 ),
                                               ),
                                               IconButton(
-                                                icon: Icon(Icons.calendar_month,
+                                                icon: const Icon(
+                                                    Icons.calendar_month,
                                                     color: Colors.white),
                                                 onPressed: () {
                                                   _selectDate(
@@ -356,11 +357,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           foregroundColor:
                                               Colors.black.withOpacity(0.7),
                                           backgroundColor: Colors.white,
-                                          minimumSize: Size(
+                                          minimumSize: const Size(
                                             double.infinity,
                                             50,
                                           ),
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                             horizontal: 16,
                                           ),
                                           shape: const RoundedRectangleBorder(
@@ -372,7 +373,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         onPressed: () {
                                           onSuccess();
                                         },
-                                        child: Text(
+                                        child: const Text(
                                           'Registrar',
                                           style: TextStyle(fontSize: 18),
                                         ),
