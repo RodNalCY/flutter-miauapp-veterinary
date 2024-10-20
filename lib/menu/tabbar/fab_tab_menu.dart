@@ -60,13 +60,13 @@ class _FabTabMenuState extends State<FabTabMenu> {
             currentIndex = 0;
           });
         },
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),
         ),
         child: const Icon(
           Icons.location_on,
-          color: Colors.white,
+          color: Colors.black,
           size: 28,
         ),
       ),
@@ -74,6 +74,7 @@ class _FabTabMenuState extends State<FabTabMenu> {
       bottomNavigationBar: BottomAppBar(
         shape: CircularNotchedRectangle(),
         notchMargin: 10,
+        color: Colors.white,
         child: Container(
           height: 50,
           child: Row(

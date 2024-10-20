@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miauapp_flutter_app/home/widgets/actions_widget.dart';
 import 'package:miauapp_flutter_app/menu/drawer/side_menu.dart';
 
 class PayScreen extends StatefulWidget {
@@ -37,6 +38,9 @@ class _PayScreenState extends State<PayScreen> {
             );
           },
         ),
+        actions: [
+          ActionsWidget(),
+        ],
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,

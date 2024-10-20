@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter/material.dart';
+import 'package:miauapp_flutter_app/home/widgets/actions_widget.dart';
 import 'package:miauapp_flutter_app/login/screens/login_screen.dart';
 import 'package:miauapp_flutter_app/menu/drawer/side_menu.dart';
 
@@ -40,6 +41,9 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           },
         ),
+        actions: [
+          ActionsWidget(),
+        ],
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
