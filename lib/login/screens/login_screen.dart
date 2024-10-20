@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miauapp_flutter_app/home/screens/home_screen.dart';
 import 'package:miauapp_flutter_app/login/screens/recovery_screen.dart';
 import 'package:miauapp_flutter_app/login/screens/register_screen.dart';
 
@@ -249,6 +250,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                         onPressed: () {
                                           onSuccess();
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    HomeScreen()),
+                                          );
                                         },
                                         child: const Text(
                                           'Ingresar',

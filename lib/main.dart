@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:miauapp_flutter_app/home/screens/home_screen.dart';
 import 'package:miauapp_flutter_app/login/screens/login_screen.dart';
 import 'package:miauapp_flutter_app/login/screens/recovery_screen.dart';
 import 'package:miauapp_flutter_app/login/screens/register_screen.dart';
 import 'package:miauapp_flutter_app/login/screens/welcome_screen.dart';
+import 'package:miauapp_flutter_app/menu/tabbar/fab_tab_menu.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,7 +37,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: WelcomeScreen(),
+      home: FabTabMenu(
+        selectedIndex: 0,
+      ),
     );
   }
 }
