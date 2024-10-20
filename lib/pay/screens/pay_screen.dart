@@ -18,19 +18,20 @@ class _PayScreenState extends State<PayScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       drawer: SideMenu(),
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Mi Pagos",
           style: TextStyle(
             color: Colors.white,
           ),
         ),
-        backgroundColor: Colors.black87,
+        backgroundColor: Colors.grey[900],
         leading: Builder(
           builder: (context) {
             return IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.menu,
                 color: Colors.white,
               ),
@@ -42,23 +43,245 @@ class _PayScreenState extends State<PayScreen> {
           ActionsWidget(),
         ],
       ),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: const Center(
-          child: Stack(
-            children: [
-              SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [],
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Sección superior de bienvenida
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 20),
+                  const Text(
+                    "Hola, Rodnal Cabello",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  const Text(
+                    "Bienvenido",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  // Tarjeta de crédito o débito
+                  Container(
+                    height: 190,
+                    decoration: BoxDecoration(
+                      color: Colors.blueGrey[900],
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    padding: const EdgeInsets.all(16),
+                    child: const Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Tarjeta de crédito o débito',
+                          style: TextStyle(
+                            color: Colors.white70,
+                            fontSize: 16,
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Image(
+                              image: AssetImage("assets/chip-logo.png"),
+                              width: 40,
+                            ),
+                            Text(
+                              '4557-9956-632-8412',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                letterSpacing: 1.5,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              'Válido\n12/26',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Image(
+                              image: AssetImage("assets/card-logo.png"),
+                              width: 65,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 40),
+            // Sección de Servicios
+            Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(20),
                 ),
               ),
-            ],
-          ),
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Encabezado
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Servicios / Groomer',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'Mas recientes',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  // Lista de servicios
+                  ServiceTile(
+                    service: 'Baño y Corte',
+                    name: 'Luis Rosales',
+                    price: '90.00',
+                    iconColor: Colors.green,
+                  ),
+                  ServiceTile(
+                    service: 'Baño',
+                    name: 'Juan Yunque',
+                    price: '40.00',
+                    iconColor: Colors.brown,
+                  ),
+                  ServiceTile(
+                    service: 'Baño y Corte',
+                    name: 'Lucio Torres',
+                    price: '85.00',
+                    iconColor: Colors.green,
+                  ),
+                  ServiceTile(
+                    service: 'Baño y Corte',
+                    name: 'Lucio Torres',
+                    price: '90.00',
+                    iconColor: Colors.green,
+                  ),
+                  ServiceTile(
+                    service: 'Corte de Uñas',
+                    name: 'María Pérez',
+                    price: '30.00',
+                    iconColor: Colors.purple,
+                  ),
+                  ServiceTile(
+                    service: 'Baño Completo',
+                    name: 'Carlos Sánchez',
+                    price: '70.00',
+                    iconColor: Colors.blue,
+                  ),
+                  ServiceTile(
+                    service: 'Desparasitación',
+                    name: 'Ana Fernández',
+                    price: '50.00',
+                    iconColor: Colors.red,
+                  ),
+                  ServiceTile(
+                    service: 'Baño y Corte',
+                    name: 'Juan Martínez',
+                    price: '85.00',
+                    iconColor: Colors.green,
+                  ),
+                  ServiceTile(
+                    service: 'Corte de Pelo',
+                    name: 'Luis Jiménez',
+                    price: '45.00',
+                    iconColor: Colors.orange,
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
+      ),
+    );
+  }
+
+  Widget ServiceTile({
+    required service,
+    required name,
+    required price,
+    required iconColor,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        children: [
+          // Icono del servicio
+          CircleAvatar(
+            radius: 20,
+            backgroundColor: iconColor,
+            child: Icon(
+              Icons.pets,
+              color: Colors.white,
+            ),
+          ),
+          SizedBox(width: 12),
+          // Información del servicio
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  service,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+                Text(
+                  name,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey[600],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Precio del servicio
+          Text(
+            price,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+          ),
+        ],
       ),
     );
   }

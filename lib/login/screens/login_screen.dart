@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:miauapp_flutter_app/home/screens/home_screen.dart';
 import 'package:miauapp_flutter_app/login/screens/recovery_screen.dart';
 import 'package:miauapp_flutter_app/login/screens/register_screen.dart';
+import 'package:miauapp_flutter_app/menu/tabbar/fab_tab_menu.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -253,8 +254,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
-                                                builder: (context) =>
-                                                    HomeScreen()),
+                                              builder: (context) => FabTabMenu(
+                                                selectedIndex: 0,
+                                              ),
+                                            ),
                                           );
                                         },
                                         child: const Text(

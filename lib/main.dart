@@ -5,6 +5,7 @@ import 'package:miauapp_flutter_app/login/screens/recovery_screen.dart';
 import 'package:miauapp_flutter_app/login/screens/register_screen.dart';
 import 'package:miauapp_flutter_app/login/screens/welcome_screen.dart';
 import 'package:miauapp_flutter_app/menu/tabbar/fab_tab_menu.dart';
+import 'package:miauapp_flutter_app/pay/screens/pay_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -37,9 +39,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home: FabTabMenu(
-        selectedIndex: 0,
-      ),
+      //home: WelcomeScreen());
+      home: PayScreen(),
     );
   }
 }

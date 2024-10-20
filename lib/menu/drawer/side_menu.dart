@@ -14,7 +14,7 @@ class _SideMenuState extends State<SideMenu> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Colors.black87,
+      backgroundColor: Colors.grey[900],
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
