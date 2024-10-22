@@ -89,6 +89,10 @@ class _RegisterSocioScreenState extends State<RegisterSocioScreen> {
           image: DecorationImage(
             image: imgBackground, // Ruta de tu imagen
             fit: BoxFit.none,
+            colorFilter: ColorFilter.mode(
+              Colors.black.withOpacity(0.5), // Color y opacidad del filtro
+              BlendMode.darken, // Modo de mezcla (darken en este caso)
+            ),
           ),
         ),
         child: Center(

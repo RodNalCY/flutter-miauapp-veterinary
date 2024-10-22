@@ -14,7 +14,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   ImageProvider imgBackground =
-      const AssetImage('assets/background-login-4.jpg');
+      const AssetImage('assets/background-login-15.jpg');
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -38,7 +38,11 @@ class _LoginScreenState extends State<LoginScreen> {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: imgBackground, // Ruta de tu imagen
-            fit: BoxFit.fill,
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+              Colors.black.withOpacity(0.5), // Color y opacidad del filtro
+              BlendMode.darken, // Modo de mezcla (darken en este caso)
+            ),
           ),
         ),
         child: Center(

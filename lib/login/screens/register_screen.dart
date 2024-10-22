@@ -11,7 +11,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   ImageProvider imgBackground =
-      const AssetImage('assets/background-login-12.jpg');
+      const AssetImage('assets/background-login-4.jpg');
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -39,7 +39,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: imgBackground, // Ruta de tu imagen
-            fit: BoxFit.cover,
+            fit: BoxFit.fill,
+            colorFilter: ColorFilter.mode(
+              Colors.black.withOpacity(0.5), // Color y opacidad del filtro
+              BlendMode.darken, // Modo de mezcla (darken en este caso)
+            ),
           ),
         ),
         child: Center(
