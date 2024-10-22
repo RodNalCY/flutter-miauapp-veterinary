@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:miauapp_flutter_app/home/screens/home_screen.dart';
 import 'package:miauapp_flutter_app/login/screens/recovery_screen.dart';
 import 'package:miauapp_flutter_app/login/screens/register_screen.dart';
+import 'package:miauapp_flutter_app/login/screens/register_socio_screen.dart';
 import 'package:miauapp_flutter_app/menu/tabbar/fab_tab_menu.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -13,7 +14,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   ImageProvider imgBackground =
-      const AssetImage('assets/background-login-3.jpg');
+      const AssetImage('assets/background-login-4.jpg');
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -37,7 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: imgBackground, // Ruta de tu imagen
-            fit: BoxFit.none,
+            fit: BoxFit.fill,
           ),
         ),
         child: Center(
@@ -344,6 +345,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   InkWell(
                                                     onTap: () {
                                                       // Acción del botón
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                RegisterSocioScreen()),
+                                                      );
                                                       print('Botón presionado');
                                                     },
                                                     child: const Text(

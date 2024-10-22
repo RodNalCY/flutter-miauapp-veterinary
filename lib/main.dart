@@ -3,6 +3,7 @@ import 'package:miauapp_flutter_app/home/screens/home_screen.dart';
 import 'package:miauapp_flutter_app/login/screens/login_screen.dart';
 import 'package:miauapp_flutter_app/login/screens/recovery_screen.dart';
 import 'package:miauapp_flutter_app/login/screens/register_screen.dart';
+import 'package:miauapp_flutter_app/login/screens/register_socio_screen.dart';
 import 'package:miauapp_flutter_app/login/screens/welcome_screen.dart';
 import 'package:miauapp_flutter_app/menu/tabbar/fab_tab_menu.dart';
 import 'package:miauapp_flutter_app/pay/screens/pay_screen.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: WelcomeScreen(),
+      // home: RegisterScreen(),
     );
   }
 }

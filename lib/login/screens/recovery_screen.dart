@@ -10,7 +10,7 @@ class RecoveryScreen extends StatefulWidget {
 
 class _RecoveryScreenState extends State<RecoveryScreen> {
   ImageProvider imgBackground =
-      const AssetImage('assets/background-login-4.jpg');
+      const AssetImage('assets/background-login-8.jpg');
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
 

@@ -1,23 +1,67 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:miauapp_flutter_app/login/screens/login_screen.dart';
 import 'package:intl/intl.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter_pdfview/flutter_pdfview.dart';
 
-class RegisterScreen extends StatefulWidget {
-  RegisterScreen({Key? key}) : super(key: key);
+class RegisterSocioScreen extends StatefulWidget {
+  const RegisterSocioScreen({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<RegisterSocioScreen> createState() => _RegisterSocioScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _RegisterSocioScreenState extends State<RegisterSocioScreen> {
   ImageProvider imgBackground =
-      const AssetImage('assets/background-login-12.jpg');
+      const AssetImage('assets/background-login-5.jpg');
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   late bool _passwordVisible;
+
+  /************************************************************************** */
+  TextEditingController _fileController = TextEditingController();
+  File? _selectedFile;
+  bool file_correct = false;
+
+  Future<void> _pickFile() async {
+    FilePickerResult? result =
+        await FilePicker.platform.pickFiles(type: FileType.any);
+
+    if (result != null) {
+      String? filePath = result.files.single.path;
+      print("filePath > ${filePath}");
+
+      if (filePath != null) {
+        // Validar la extensión del archivo
+        if (filePath.endsWith('.png') ||
+            filePath.endsWith('.jpg') ||
+            filePath.endsWith('.jpeg') ||
+            filePath.endsWith('.pdf')) {
+          // Dividimos el string por la carpeta 'file_picker/'
+          List<String> parts = filePath.split('file_picker/');
+
+          setState(() {
+            _selectedFile = File(filePath);
+            // _fileController.text =
+            //    filePath; // Mostrar la ruta del archivo seleccionado
+
+            _fileController.text = parts[1];
+          });
+        } else {
+          // Si el archivo no es válido, muestra un mensaje de error
+          onErrorFile(); // Llamar al método que muestra el SnackBar de error
+        }
+      }
+    } else {
+      // El usuario canceló la selección del archivo
+      onErrorFile(); // Muestra el error si no se selecciona un archivo
+    }
+  }
 
   @override
   void initState() {
@@ -31,6 +75,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
@@ -39,7 +88,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: imgBackground, // Ruta de tu imagen
-            fit: BoxFit.cover,
+            fit: BoxFit.none,
           ),
         ),
         child: Center(
@@ -70,18 +119,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   text: const TextSpan(
                                     children: [
                                       TextSpan(
-                                        text: 'Crea una',
+                                        text: 'Crea una cuenta',
                                         style: TextStyle(
-                                          fontSize: 45,
+                                          fontSize: 40,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.white,
                                           height: 1,
                                         ),
                                       ),
                                       TextSpan(
-                                        text: '\ncuenta nueva',
+                                        text: '\n de socio',
                                         style: TextStyle(
-                                          fontSize: 45,
+                                          fontSize: 40,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.white,
                                           height: 1,
@@ -349,8 +398,70 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           ),
                                         ),
                                       ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Container(
+                                        alignment: Alignment.centerLeft,
+                                        child: const Text(
+                                          "DOCUMENTO",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 12,
+                                            vertical: 5,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color:
+                                                Colors.black.withOpacity(0.8),
+                                            borderRadius:
+                                                BorderRadius.circular(3),
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                child: TextFormField(
+                                                  controller: _fileController,
+                                                  style: const TextStyle(
+                                                      color: Colors.white54),
+                                                  decoration: InputDecoration(
+                                                    border: InputBorder.none,
+                                                    hintText:
+                                                        'Adjunte archivo (.png .jpg .pdf)',
+                                                    hintStyle: TextStyle(
+                                                        color: Colors.white
+                                                            .withOpacity(0.5)),
+                                                  ),
+                                                  readOnly: true,
+                                                  onTap: () {},
+                                                ),
+                                              ),
+                                              IconButton(
+                                                icon: Icon(
+                                                  Icons.cloud_upload,
+                                                  color: Colors.white,
+                                                ),
+                                                onPressed: _pickFile,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
+                                      if (_selectedFile != null)
+                                        _buildFilePreview(_selectedFile!),
                                       const Padding(
-                                        padding: EdgeInsets.only(top: 40.0),
+                                        padding: EdgeInsets.only(top: 20.0),
                                       ),
                                       ElevatedButton(
                                         style: ElevatedButton.styleFrom(
@@ -400,6 +511,75 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
+// Método para construir la vista previa del archivo
+  Widget _buildFilePreview(File file) {
+    String filePath = file.path;
+
+    if (filePath.endsWith('.png') ||
+        filePath.endsWith('.jpg') ||
+        filePath.endsWith('.jpeg')) {
+      // Vista previa de la imagen
+      return Container(
+        width: 140,
+        height: 140,
+        decoration: BoxDecoration(
+          color: Colors.white, // Fondo blanco para resaltar la imagen
+          borderRadius: BorderRadius.circular(15), // Bordes redondeados
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black
+                  .withOpacity(0.2), // Sombra de color negro con opacidad
+              spreadRadius: 2, // Extensión de la sombra
+              blurRadius: 8, // Difusión de la sombra
+              offset: Offset(4, 4), // Desplazamiento de la sombra en x e y
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(
+              15), // Asegura que la imagen también tenga bordes redondeados
+          child: Image.file(
+            file,
+            width: 140,
+            height: 140,
+            fit:
+                BoxFit.contain, // Ajusta la imagen para que llene el contenedor
+          ),
+        ),
+      );
+    } else if (filePath.endsWith('.pdf')) {
+      return Container(
+        width: 140,
+        height: 140,
+        decoration: BoxDecoration(
+          color: Colors.white, // Fondo blanco para resaltar la imagen
+          borderRadius: BorderRadius.circular(15), // Bordes redondeados
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black
+                  .withOpacity(0.2), // Sombra de color negro con opacidad
+              spreadRadius: 2, // Extensión de la sombra
+              blurRadius: 8, // Difusión de la sombra
+              offset: Offset(4, 4), // Desplazamiento de la sombra en x e y
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(
+              15), // Asegura que la imagen también tenga bordes redondeados
+          child: PDFView(
+            filePath:
+                file.path, // Ajusta la imagen para que llene el contenedor
+          ),
+        ),
+      );
+    } else {
+      // Llamar a onErrorFile() para mostrar el SnackBar y retornar un widget vacío
+
+      return SizedBox.shrink(); // Retorna un widget vacío
+    }
+  }
+
   Future<void> _selectDate(BuildContext context) async {
     DateTime? pickedDate = await showDatePicker(
       context: context,
@@ -420,6 +600,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
         _dateController.text = DateFormat('dd-MM-yyyy').format(pickedDate);
       });
     }
+  }
+
+  void onErrorFile() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Solo se permiten archivos .png, .jpg, .jpeg o .pdf."),
+        duration: Duration(seconds: 2),
+        backgroundColor: Colors.red,
+      ),
+    );
   }
 
   void onSuccess() {
