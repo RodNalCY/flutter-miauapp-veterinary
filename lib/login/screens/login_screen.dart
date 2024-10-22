@@ -98,7 +98,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                               ),
                                             ),
                                             InkWell(
-                                              onTap: () {
+                                              onTap: () async {
+                                                await loadingScreen(
+                                                    context: context);
                                                 // Acción del botón
                                                 print('Botón presionado');
                                                 Navigator.push(
@@ -254,7 +256,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                             ),
                                           ),
                                         ),
-                                        onPressed: () {
+                                        onPressed: () async {
+                                          await loadingScreen(context: context);
                                           onSuccess();
                                           Navigator.push(
                                             context,
@@ -264,6 +267,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               ),
                                             ),
                                           );
+                                          // ;
                                         },
                                         child: const Text(
                                           'Ingresar',
@@ -282,7 +286,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   InkWell(
-                                                    onTap: () {
+                                                    onTap: () async {
+                                                      await loadingScreen(
+                                                          context: context);
                                                       // Acción del botón
                                                       print('Botón presionado');
                                                       Navigator.push(
@@ -347,7 +353,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     ),
                                                   ),
                                                   InkWell(
-                                                    onTap: () {
+                                                    onTap: () async {
+                                                      await loadingScreen(
+                                                          context: context);
                                                       // Acción del botón
                                                       Navigator.push(
                                                         context,
@@ -390,6 +398,28 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> loadingScreen({required BuildContext context}) async {
+    // Mostrar el diálogo
+    final dialog = showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+            child: CircularProgressIndicator(
+          color: Colors.white,
+        ));
+      },
+    );
+
+    // Esperar 5 segundos
+    await Future.delayed(Duration(seconds: 2));
+
+    // Cerrar el diálogo
+    Navigator.of(context).pop(); // Cierra el diálogo
+
+    // Espera a que el diálogo se cierre
+    await dialog;
   }
 
   void onSuccess() {

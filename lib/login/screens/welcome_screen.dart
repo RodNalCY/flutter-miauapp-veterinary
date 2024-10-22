@@ -103,8 +103,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 borderRadius: BorderRadius.all(Radius.circular(5)),
               ),
             ),
-            onPressed: () {
-              print('Botón presionado');
+            onPressed: () async {
+              await loadingScreen(context: context);
               // onSuccess();
               Navigator.push(
                 context,
@@ -120,6 +120,28 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> loadingScreen({required BuildContext context}) async {
+    // Mostrar el diálogo
+    final dialog = showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+            child: CircularProgressIndicator(
+          color: Colors.white,
+        ));
+      },
+    );
+
+    // Esperar 5 segundos
+    await Future.delayed(Duration(seconds: 2));
+
+    // Cerrar el diálogo
+    Navigator.of(context).pop(); // Cierra el diálogo
+
+    // Espera a que el diálogo se cierre
+    await dialog;
   }
 
   void onSuccess() {

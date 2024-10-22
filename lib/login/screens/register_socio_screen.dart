@@ -485,7 +485,8 @@ class _RegisterSocioScreenState extends State<RegisterSocioScreen> {
                                             ),
                                           ),
                                         ),
-                                        onPressed: () {
+                                        onPressed: () async {
+                                          await loadingScreen(context: context);
                                           onSuccess();
                                         },
                                         child: const Text(
@@ -604,6 +605,28 @@ class _RegisterSocioScreenState extends State<RegisterSocioScreen> {
         _dateController.text = DateFormat('dd-MM-yyyy').format(pickedDate);
       });
     }
+  }
+
+  Future<void> loadingScreen({required BuildContext context}) async {
+    // Mostrar el diálogo
+    final dialog = showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+            child: CircularProgressIndicator(
+          color: Colors.white,
+        ));
+      },
+    );
+
+    // Esperar 5 segundos
+    await Future.delayed(Duration(seconds: 2));
+
+    // Cerrar el diálogo
+    Navigator.of(context).pop(); // Cierra el diálogo
+
+    // Espera a que el diálogo se cierre
+    await dialog;
   }
 
   void onErrorFile() {
