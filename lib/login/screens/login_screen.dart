@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:miauapp_flutter_app/home/screens/home_screen.dart';
+import 'package:miauapp_flutter_app/login/controller/database_helper.dart';
+import 'package:miauapp_flutter_app/login/model/user.dart';
 import 'package:miauapp_flutter_app/login/screens/recovery_screen.dart';
 import 'package:miauapp_flutter_app/login/screens/register_screen.dart';
 import 'package:miauapp_flutter_app/login/screens/register_socio_screen.dart';
 import 'package:miauapp_flutter_app/menu/tabbar/fab_tab_menu.dart';
+import 'package:sqflite/sqflite.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
@@ -257,16 +260,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                           ),
                                         ),
                                         onPressed: () async {
-                                          await loadingScreen(context: context);
-                                          onSuccess();
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => FabTabMenu(
-                                                selectedIndex: 0,
-                                              ),
-                                            ),
-                                          );
+                                          // onSuccess();
+                                          // await loadingScreen(context: context);
+                                          await loginUser();
+                                          // Navigator.push(
+                                          //   context,
+                                          //   MaterialPageRoute(
+                                          //     builder: (context) => FabTabMenu(
+                                          //       selectedIndex: 0,
+                                          //     ),
+                                          //   ),
+                                          // );
                                           // ;
                                         },
                                         child: const Text(
@@ -400,6 +404,36 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  Future<void> loginUser() async {
+    final email = _emailController.text;
+    final password = _passwordController.text;
+
+    if (email != "" && password != "") {
+      final user =
+          await DatabaseHelper().getUserByEmailAndPassword(email, password);
+      if (user != null) {
+        print('Login exitoso para: ${user.name}');
+        onSuccess();
+        await loadingScreen(context: context);
+        // Redirigir al usuario o mostrar mensaje de éxito
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => FabTabMenu(
+              selectedIndex: 0,
+            ),
+          ),
+        );
+      } else {
+        print('Credenciales incorrectas');
+        // Mostrar mensaje de error
+        onIncorrect();
+      }
+    } else {
+      onInputEmpty();
+    }
+  }
+
   Future<void> loadingScreen({required BuildContext context}) async {
     // Mostrar el diálogo
     final dialog = showDialog(
@@ -413,7 +447,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
 
     // Esperar 5 segundos
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 3));
 
     // Cerrar el diálogo
     Navigator.of(context).pop(); // Cierra el diálogo
@@ -422,12 +456,32 @@ class _LoginScreenState extends State<LoginScreen> {
     await dialog;
   }
 
+  void onInputEmpty() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Por favor, complete el formulario."),
+        duration: const Duration(seconds: 1),
+        backgroundColor: Color.fromARGB(255, 219, 167, 22),
+      ),
+    );
+  }
+
   void onSuccess() {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text("Las credenciales son correctas."),
         duration: const Duration(seconds: 2),
         backgroundColor: Colors.blue,
+      ),
+    );
+  }
+
+  void onIncorrect() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Las credenciales son incorrectas."),
+        duration: const Duration(seconds: 1),
+        backgroundColor: Colors.red,
       ),
     );
   }

@@ -1,10 +1,13 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:miauapp_flutter_app/login/controller/database_helper.dart';
+import 'package:miauapp_flutter_app/login/model/user.dart';
 import 'package:miauapp_flutter_app/login/screens/login_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:miauapp_flutter_app/login/utils/text_formatters.dart';
 
 class RegisterSocioScreen extends StatefulWidget {
   const RegisterSocioScreen({super.key});
@@ -22,6 +25,11 @@ class _RegisterSocioScreenState extends State<RegisterSocioScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   late bool _passwordVisible;
+
+  late bool _validateEmail;
+  final emailRegex = RegExp(
+    r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+  );
 
   /************************************************************************** */
   TextEditingController _fileController = TextEditingController();
@@ -68,14 +76,21 @@ class _RegisterSocioScreenState extends State<RegisterSocioScreen> {
     super.initState();
 
     _passwordVisible = true;
+    _validateEmail = false;
     _emailController.text = "";
     _passwordController.text = "";
     _nameController.text = "";
     _dateController.text = "";
+    _fileController.text = "";
   }
 
   @override
   void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _nameController.dispose();
+    _dateController.dispose();
+    _fileController.dispose();
     super.dispose();
   }
 
@@ -229,6 +244,10 @@ class _RegisterSocioScreenState extends State<RegisterSocioScreen> {
                                                     .withOpacity(0.5),
                                               ),
                                             ),
+                                            inputFormatters: [
+                                              // Esto convierte todo lo que se escriba a mayúsculas
+                                              UpperCaseTextFormatter(),
+                                            ],
                                           ),
                                         ),
                                       ),
@@ -270,9 +289,33 @@ class _RegisterSocioScreenState extends State<RegisterSocioScreen> {
                                                     .withOpacity(0.5),
                                               ),
                                             ),
+                                            onChanged: (value) {
+                                              if (!emailRegex
+                                                  .hasMatch(value as String)) {
+                                                setState(() {
+                                                  _validateEmail = true;
+                                                });
+                                              } else {
+                                                setState(() {
+                                                  _validateEmail = false;
+                                                });
+                                              }
+                                            },
                                           ),
                                         ),
                                       ),
+                                      _validateEmail
+                                          ? const Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                "Por favor, ingrese un correo electrónico válido.",
+                                                style: TextStyle(
+                                                    color: Colors.redAccent,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            )
+                                          : Container(),
                                       const SizedBox(
                                         height: 10,
                                       ),
@@ -486,8 +529,7 @@ class _RegisterSocioScreenState extends State<RegisterSocioScreen> {
                                           ),
                                         ),
                                         onPressed: () async {
-                                          await loadingScreen(context: context);
-                                          onSuccess();
+                                          await registerUser();
                                         },
                                         child: const Text(
                                           'Registrar',
@@ -514,6 +556,36 @@ class _RegisterSocioScreenState extends State<RegisterSocioScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> registerUser() async {
+    if (_nameController.text != "" &&
+        _emailController.text != "" &&
+        _passwordController.text != "" &&
+        _dateController.text != "" &&
+        _fileController.text != "" &&
+        _validateEmail == false) {
+      await loadingScreen(context: context);
+      final newUser = User(
+        name: _nameController.text,
+        email: _emailController.text,
+        password: _passwordController.text,
+        birthDate: _dateController.text,
+        role: "socio",
+        file: _fileController.text,
+      );
+
+      await DatabaseHelper().insertUser(newUser);
+      onSuccess();
+      print('Usuario registrado: ${newUser.name}');
+      print('Usuario file: ${newUser.file}');
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+      );
+    } else {
+      onInputEmpty();
+    }
   }
 
 // Método para construir la vista previa del archivo
@@ -645,6 +717,16 @@ class _RegisterSocioScreenState extends State<RegisterSocioScreen> {
         content: Text("El registro fue realizado con exito."),
         duration: const Duration(seconds: 2),
         backgroundColor: Colors.blue,
+      ),
+    );
+  }
+
+  void onInputEmpty() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Por favor, complete el formulario."),
+        duration: const Duration(seconds: 1),
+        backgroundColor: Color.fromARGB(255, 219, 167, 22),
       ),
     );
   }

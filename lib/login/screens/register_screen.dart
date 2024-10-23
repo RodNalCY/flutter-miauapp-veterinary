@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:miauapp_flutter_app/login/controller/database_helper.dart';
+import 'package:miauapp_flutter_app/login/model/user.dart';
 import 'package:miauapp_flutter_app/login/screens/login_screen.dart';
 import 'package:intl/intl.dart';
+import 'package:miauapp_flutter_app/login/utils/text_formatters.dart';
 
 class RegisterScreen extends StatefulWidget {
   RegisterScreen({Key? key}) : super(key: key);
@@ -19,15 +22,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _dateController = TextEditingController();
   late bool _passwordVisible;
 
+  late bool _validateEmail;
+  final emailRegex = RegExp(
+    r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+  );
+
   @override
   void initState() {
     super.initState();
 
     _passwordVisible = true;
+    _validateEmail = false;
     _emailController.text = "";
     _passwordController.text = "";
     _nameController.text = "";
     _dateController.text = "";
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _emailController.dispose();
+    _passwordController.dispose();
+    _nameController.dispose();
+    _dateController.dispose();
+    super.dispose();
   }
 
   @override
@@ -182,6 +201,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                     .withOpacity(0.5),
                                               ),
                                             ),
+                                            inputFormatters: [
+                                              // Esto convierte todo lo que se escriba a mayúsculas
+                                              UpperCaseTextFormatter(),
+                                            ],
                                           ),
                                         ),
                                       ),
@@ -223,9 +246,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                     .withOpacity(0.5),
                                               ),
                                             ),
+                                            onChanged: (value) {
+                                              if (!emailRegex
+                                                  .hasMatch(value as String)) {
+                                                setState(() {
+                                                  _validateEmail = true;
+                                                });
+                                              } else {
+                                                setState(() {
+                                                  _validateEmail = false;
+                                                });
+                                              }
+                                            },
                                           ),
                                         ),
                                       ),
+                                      _validateEmail
+                                          ? const Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                "Por favor, ingrese un correo electrónico válido.",
+                                                style: TextStyle(
+                                                    color: Colors.redAccent,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            )
+                                          : Container(),
                                       const SizedBox(
                                         height: 10,
                                       ),
@@ -377,8 +424,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           ),
                                         ),
                                         onPressed: () async {
-                                          await loadingScreen(context: context);
-                                          onSuccess();
+                                          await registerUser();
                                         },
                                         child: const Text(
                                           'Registrar',
@@ -405,6 +451,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> registerUser() async {
+    if (_nameController.text != "" &&
+        _emailController.text != "" &&
+        _passwordController.text != "" &&
+        _dateController.text != "" &&
+        _validateEmail == false) {
+      await loadingScreen(context: context);
+      final newUser = User(
+        name: _nameController.text,
+        email: _emailController.text,
+        password: _passwordController.text,
+        birthDate: _dateController.text,
+        role: "user",
+        file: "-",
+      );
+
+      await DatabaseHelper().insertUser(newUser);
+      onSuccess();
+      print('Usuario registrado: ${newUser.name}');
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => LoginScreen()),
+      );
+    } else {
+      onInputEmpty();
+    }
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -457,6 +531,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
         content: Text("El registro fue realizado con exito."),
         duration: const Duration(seconds: 2),
         backgroundColor: Colors.blue,
+      ),
+    );
+  }
+
+  void onInputEmpty() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text("Por favor, complete el formulario."),
+        duration: const Duration(seconds: 1),
+        backgroundColor: Color.fromARGB(255, 219, 167, 22),
       ),
     );
   }
