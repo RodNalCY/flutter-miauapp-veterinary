@@ -661,8 +661,8 @@ class _RegisterSocioScreenState extends State<RegisterSocioScreen> {
     DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2000), // Fecha mínima
-      lastDate: DateTime(2101), // Fecha máxima
+      firstDate: DateTime(1950), // Fecha mínima
+      lastDate: DateTime(2030), // Fecha máxima
       builder: (BuildContext context, Widget? child) {
         return Theme(
           data: ThemeData
