@@ -5,6 +5,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:miauapp_flutter_app/map/model/map_marker.dart';
 import 'package:miauapp_flutter_app/menu/drawer/side_menu.dart';
+import 'package:another_flushbar/flushbar.dart';
 
 const MAPBOX_ACCESS_TOKEN =
     "pk.eyJ1Ijoicm9kbmFsIiwiYSI6ImNtMmx3aHUyNTBoYWkybHB2cTdvZ2p4a3oifQ.TjBnXTGuCaJwJV_hQWUmxQ";
@@ -207,7 +208,6 @@ class _MyLocationMarker extends AnimatedWidget {
         ],
       ),
     );
-    ;
   }
 }
 
@@ -225,7 +225,7 @@ class _MapItemDetails extends StatelessWidget {
     final _styleAdress = TextStyle(color: Colors.grey[800], fontSize: 14);
     // TODO: implement build
     return Padding(
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.only(bottom: 20, top: 20, left: 10, right: 10),
       child: Card(
         margin: EdgeInsets.zero,
         color: Colors.white,
@@ -302,12 +302,29 @@ class _MapItemDetails extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                onSuccess(title: mapMarker.title, context: context);
+              },
             )
           ],
         ),
       ),
     );
+  }
+
+  void onSuccess({required String title, required BuildContext context}) {
+    Flushbar(
+      // title: 'Hey Ninja',
+      message:
+          'Tu solicitud ha sido enviada a ${title}. Por favor, espera la confirmación de tu reserva.',
+      duration: Duration(seconds: 3),
+      flushbarPosition: FlushbarPosition.TOP,
+      icon: Icon(
+        Icons.forward_to_inbox,
+        color: Colors.white,
+      ),
+      backgroundColor: Colors.cyan,
+    ).show(context);
   }
 }
 

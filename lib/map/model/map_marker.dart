@@ -98,7 +98,7 @@ final mapMarkers = [
   MapMarker(
     image: "${_path}/logo-8.jpg",
     title: "Fur & Shine",
-    description: "Baños y cuidados personalizados para tu mascota.",
+    description: "Baños y cuidados personalizados.",
     address: "Av. Gral. Mendiburu 397-299, Miraflores 15074",
     location: _locations[7],
     score: 2,
@@ -114,7 +114,7 @@ final mapMarkers = [
   MapMarker(
     image: "${_path}/logo-10.jpg",
     title: "VetLuxe - Estética y Bienestar Animal",
-    description: "Baños completos y aromaterapia para tus mascotas.",
+    description: "Baños completos y aromaterapia.",
     address: "Urb la Viñita, Barranco",
     location: _locations[9],
     score: 5,

@@ -68,9 +68,9 @@ class _FabTabMenuState extends State<FabTabMenu> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),
         ),
-        child: const Icon(
-          Icons.location_on,
-          color: Colors.black,
+        child: Icon(
+          Icons.add_location_alt,
+          color: currentIndex == 4 ? color_active : color_inactive,
           size: 28,
         ),
       ),
