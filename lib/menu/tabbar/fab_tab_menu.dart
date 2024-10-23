@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miauapp_flutter_app/home/screens/home_screen.dart';
+import 'package:miauapp_flutter_app/map/screen/animated_markers_map.dart';
 import 'package:miauapp_flutter_app/pay/screens/pay_screen.dart';
 import 'package:miauapp_flutter_app/profile/screens/perfil_screen.dart';
 import 'package:miauapp_flutter_app/search/screens/search_screen.dart';
@@ -19,6 +20,7 @@ class _FabTabMenuState extends State<FabTabMenu> {
     PayScreen(),
     SearchScreen(),
     PerfilScreen(),
+    AnimatedMarkersMap()
   ];
 
   final PageStorageBucket bucket = PageStorageBucket();
@@ -47,7 +49,9 @@ class _FabTabMenuState extends State<FabTabMenu> {
             ? PayScreen()
             : currentIndex == 2
                 ? SearchScreen()
-                : PerfilScreen();
+                : currentIndex == 3
+                    ? PerfilScreen()
+                    : AnimatedMarkersMap();
     return Scaffold(
       body: PageStorage(
         bucket: bucket,
@@ -56,8 +60,8 @@ class _FabTabMenuState extends State<FabTabMenu> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
-            currentScreen = HomeScreen();
-            currentIndex = 0;
+            currentScreen = AnimatedMarkersMap();
+            currentIndex = 4;
           });
         },
         backgroundColor: Colors.white,
