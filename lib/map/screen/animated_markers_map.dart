@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:miauapp_flutter_app/login/model/user.dart';
 import 'package:miauapp_flutter_app/map/model/map_marker.dart';
 import 'package:miauapp_flutter_app/menu/drawer/side_menu.dart';
 import 'package:another_flushbar/flushbar.dart';
@@ -16,7 +17,8 @@ const MARKER_SIZE_EXPANDED = 50.0;
 const MARKER_SIZE_SHRINKED = 40.0;
 
 class AnimatedMarkersMap extends StatefulWidget {
-  const AnimatedMarkersMap({super.key});
+  late User user;
+  AnimatedMarkersMap({super.key, required this.user});
 
   @override
   State<AnimatedMarkersMap> createState() => _AnimatedMarkersMapState();
@@ -42,11 +44,11 @@ class _AnimatedMarkersMapState extends State<AnimatedMarkersMap>
           point: mapItem.location,
           child: GestureDetector(
             onTap: () {
-              _selectedIndex = i;
               setState(() {
+                _selectedIndex = i;
                 _pageController.animateToPage(i,
                     duration: const Duration(milliseconds: 500),
-                    curve: Curves.elasticOut);
+                    curve: Curves.easeInOut);
                 print("Selected ${mapItem.title}");
               });
             },
@@ -81,7 +83,9 @@ class _AnimatedMarkersMapState extends State<AnimatedMarkersMap>
     final _markers = _buildMarkers();
     return Scaffold(
       backgroundColor: Colors.black,
-      drawer: SideMenu(),
+      drawer: SideMenu(
+        user: widget.user,
+      ),
       appBar: AppBar(
         title: const Text(
           "Maps",

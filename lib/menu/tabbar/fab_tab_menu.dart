@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miauapp_flutter_app/home/screens/home_screen.dart';
+import 'package:miauapp_flutter_app/login/model/user.dart';
 import 'package:miauapp_flutter_app/map/screen/animated_markers_map.dart';
 import 'package:miauapp_flutter_app/pay/screens/pay_screen.dart';
 import 'package:miauapp_flutter_app/profile/screens/perfil_screen.dart';
@@ -7,7 +8,8 @@ import 'package:miauapp_flutter_app/search/screens/search_screen.dart';
 
 class FabTabMenu extends StatefulWidget {
   late int selectedIndex;
-  FabTabMenu({super.key, required this.selectedIndex});
+  late User user;
+  FabTabMenu({super.key, required this.selectedIndex, required this.user});
 
   @override
   State<FabTabMenu> createState() => _FabTabMenuState();
@@ -15,13 +17,7 @@ class FabTabMenu extends StatefulWidget {
 
 class _FabTabMenuState extends State<FabTabMenu> {
   int currentIndex = 0;
-  final List<Widget> pages = [
-    HomeScreen(),
-    PayScreen(),
-    SearchScreen(),
-    PerfilScreen(),
-    AnimatedMarkersMap()
-  ];
+  late final List<Widget> pages;
 
   final PageStorageBucket bucket = PageStorageBucket();
   Color color_active = Colors.black;
@@ -38,20 +34,29 @@ class _FabTabMenuState extends State<FabTabMenu> {
   void initState() {
     // TODO: implement initState
     onItemTapped(widget.selectedIndex);
+    pages = [
+      HomeScreen(user: widget.user),
+      PayScreen(user: widget.user),
+      SearchScreen(user: widget.user),
+      PerfilScreen(user: widget.user),
+      AnimatedMarkersMap(user: widget.user),
+    ];
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     Widget currentScreen = currentIndex == 0
-        ? HomeScreen()
+        ? HomeScreen(
+            user: widget.user,
+          )
         : currentIndex == 1
-            ? PayScreen()
+            ? PayScreen(user: widget.user)
             : currentIndex == 2
-                ? SearchScreen()
+                ? SearchScreen(user: widget.user)
                 : currentIndex == 3
-                    ? PerfilScreen()
-                    : AnimatedMarkersMap();
+                    ? PerfilScreen(user: widget.user)
+                    : AnimatedMarkersMap(user: widget.user);
     return Scaffold(
       body: PageStorage(
         bucket: bucket,
@@ -60,7 +65,7 @@ class _FabTabMenuState extends State<FabTabMenu> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
-            currentScreen = AnimatedMarkersMap();
+            currentScreen = AnimatedMarkersMap(user: widget.user);
             currentIndex = 4;
           });
         },
@@ -90,7 +95,9 @@ class _FabTabMenuState extends State<FabTabMenu> {
                   MaterialButton(
                     onPressed: () {
                       setState(() {
-                        currentScreen = HomeScreen();
+                        currentScreen = HomeScreen(
+                          user: widget.user,
+                        );
                         currentIndex = 0;
                       });
                     },
@@ -118,7 +125,7 @@ class _FabTabMenuState extends State<FabTabMenu> {
                   MaterialButton(
                     onPressed: () {
                       setState(() {
-                        currentScreen = PayScreen();
+                        currentScreen = PayScreen(user: widget.user);
                         currentIndex = 1;
                       });
                     },
@@ -151,7 +158,7 @@ class _FabTabMenuState extends State<FabTabMenu> {
                   MaterialButton(
                     onPressed: () {
                       setState(() {
-                        currentScreen = SearchScreen();
+                        currentScreen = SearchScreen(user: widget.user);
                         currentIndex = 2;
                       });
                     },
@@ -179,7 +186,7 @@ class _FabTabMenuState extends State<FabTabMenu> {
                   MaterialButton(
                     onPressed: () {
                       setState(() {
-                        currentScreen = PerfilScreen();
+                        currentScreen = PerfilScreen(user: widget.user);
                         currentIndex = 3;
                       });
                     },

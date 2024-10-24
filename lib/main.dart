@@ -40,10 +40,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      // home: WelcomeScreen(),
-      home: FabTabMenu(
-        selectedIndex: 1,
-      ),
+      home: WelcomeScreen(),
+      // home: FabTabMenu(
+      //   selectedIndex: 1,
+      // ),
     );
   }
 }

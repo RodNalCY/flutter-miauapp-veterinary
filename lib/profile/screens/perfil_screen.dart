@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:miauapp_flutter_app/home/widgets/actions_widget.dart';
+import 'package:miauapp_flutter_app/login/model/user.dart';
 import 'package:miauapp_flutter_app/menu/drawer/side_menu.dart';
 
 class PerfilScreen extends StatefulWidget {
-  const PerfilScreen({super.key});
+  late User user;
+
+  PerfilScreen({super.key, required this.user});
 
   @override
   State<PerfilScreen> createState() => _PerfilScreenState();
@@ -29,7 +32,9 @@ class _PerfilScreenState extends State<PerfilScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      drawer: SideMenu(),
+      drawer: SideMenu(
+        user: widget.user,
+      ),
       appBar: AppBar(
         title: const Text(
           "Perfil",

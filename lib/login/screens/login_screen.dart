@@ -28,8 +28,8 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
 
     _passwordVisible = true;
-    _emailController.text = "";
-    _passwordController.text = "";
+    _emailController.text = "rodnal@gmail.com";
+    _passwordController.text = "12345";
   }
 
   @override
@@ -412,7 +412,10 @@ class _LoginScreenState extends State<LoginScreen> {
       final user =
           await DatabaseHelper().getUserByEmailAndPassword(email, password);
       if (user != null) {
-        print('Login exitoso para: ${user.name}');
+        print("-------------------------");
+        print('Login exitoso para: ${user.role}');
+
+        print("-------------------------");
         onSuccess();
         await loadingScreen(context: context);
         // Redirigir al usuario o mostrar mensaje de éxito
@@ -421,6 +424,7 @@ class _LoginScreenState extends State<LoginScreen> {
           MaterialPageRoute(
             builder: (context) => FabTabMenu(
               selectedIndex: 0,
+              user: user,
             ),
           ),
         );

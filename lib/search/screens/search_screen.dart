@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:miauapp_flutter_app/home/widgets/actions_widget.dart';
+import 'package:miauapp_flutter_app/login/model/user.dart';
 import 'package:miauapp_flutter_app/menu/drawer/side_menu.dart';
 
 class SearchScreen extends StatefulWidget {
-  SearchScreen({Key? key}) : super(key: key);
+  late User user;
+
+  SearchScreen({Key? key, required this.user}) : super(key: key);
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -18,7 +21,9 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: SideMenu(),
+      drawer: SideMenu(
+        user: widget.user,
+      ),
       appBar: AppBar(
         title: Text(
           "Buscar",

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:miauapp_flutter_app/home/screens/home_screen.dart';
+import 'package:miauapp_flutter_app/login/model/user.dart';
 import 'package:miauapp_flutter_app/menu/tabbar/fab_tab_menu.dart';
 import 'package:miauapp_flutter_app/profile/screens/perfil_screen.dart';
 
 class SideMenu extends StatefulWidget {
-  const SideMenu({super.key});
+  late User user;
+
+  SideMenu({super.key, required this.user});
 
   @override
   State<SideMenu> createState() => _SideMenuState();
@@ -158,6 +161,7 @@ class _SideMenuState extends State<SideMenu> {
               MaterialPageRoute(
                 builder: (context) => FabTabMenu(
                   selectedIndex: index,
+                  user: widget.user,
                 ),
               ),
             ),

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:miauapp_flutter_app/home/widgets/actions_widget.dart';
+import 'package:miauapp_flutter_app/login/controller/database_helper.dart';
+import 'package:miauapp_flutter_app/login/model/user.dart';
 import 'package:miauapp_flutter_app/menu/drawer/side_menu.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  late User user;
+  HomeScreen({Key? key, required this.user}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -12,6 +15,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
+    print(widget.user.name);
+    print(widget.user.password);
+    print(widget.user.email);
     super.initState();
   }
 
@@ -19,7 +25,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      drawer: SideMenu(),
+      drawer: SideMenu(
+        user: widget.user,
+      ),
       appBar: AppBar(
         title: const Text(
           "Home",

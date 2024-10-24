@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:miauapp_flutter_app/home/widgets/actions_widget.dart';
+import 'package:miauapp_flutter_app/login/model/user.dart';
 import 'package:miauapp_flutter_app/menu/drawer/side_menu.dart';
 
 class PayScreen extends StatefulWidget {
-  PayScreen({Key? key}) : super(key: key);
+  late User user;
+  PayScreen({Key? key, required this.user}) : super(key: key);
 
   @override
   State<PayScreen> createState() => _PayScreenState();
@@ -19,7 +21,9 @@ class _PayScreenState extends State<PayScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      drawer: SideMenu(),
+      drawer: SideMenu(
+        user: widget.user,
+      ),
       appBar: AppBar(
         title: const Text(
           "Mi Pagos",
@@ -54,9 +58,9 @@ class _PayScreenState extends State<PayScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 20),
-                  const Text(
-                    "Hola, Rodnal Cabello",
-                    style: TextStyle(
+                  Text(
+                    "Hola, ${widget.user.name}",
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
