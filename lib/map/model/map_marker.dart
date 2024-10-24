@@ -8,6 +8,7 @@ class MapMarker {
     required this.address,
     required this.location,
     required this.score,
+    required this.image_pointer,
   });
 
   final String image;
@@ -16,6 +17,7 @@ class MapMarker {
   final String address;
   final LatLng location;
   final int score;
+  final String image_pointer;
 }
 
 final _locations = [
@@ -46,14 +48,16 @@ final mapMarkers = [
     address: "Edificio El Pardo, Av. José Pardo 422, Miraflores 15074",
     location: _locations[0],
     score: 3,
+    image_pointer: "assets/marker_house.png",
   ),
   MapMarker(
-    image: "${_path}/logo-2.jpg",
-    title: "Happy Paws",
+    image: "${_path}/logo-person-1.png",
+    title: "Luis Antonio Flores",
     description: "Ofrecemos baños y grooming profesional.",
-    address: "Progreso, Pr. 15 Miraflores 15074",
+    address: "Miraflores",
     location: _locations[1],
     score: 4,
+    image_pointer: "assets/marker_person.webp",
   ),
   MapMarker(
     image: "${_path}/logo-3.jpg",
@@ -62,14 +66,16 @@ final mapMarkers = [
     address: "Antero Aspillaga 814-896, Surquillo 15047",
     location: _locations[2],
     score: 5,
+    image_pointer: "assets/marker_house.png",
   ),
   MapMarker(
-    image: "${_path}/logo-4.jpg",
-    title: "Furry Haven",
+    image: "${_path}/logo-person-2.jpg",
+    title: "Jose Antonio Aguilar",
     description: "Baño, peluquería y spa para tus mascotas.",
-    address: "Av. Angamos Este 120-198, Miraflores 15074",
+    address: "Miraflores",
     location: _locations[3],
     score: 3,
+    image_pointer: "assets/marker_person.webp",
   ),
   MapMarker(
     image: "${_path}/logo-5.jpg",
@@ -78,14 +84,16 @@ final mapMarkers = [
     address: "Petit Jean Ocharán, Miraflores 15074",
     location: _locations[4],
     score: 2,
+    image_pointer: "assets/marker_house.png",
   ),
   MapMarker(
-    image: "${_path}/logo-6.jpg",
-    title: "Best Friends",
+    image: "${_path}/logo-person-3.png",
+    title: "Adam F. Garcia",
     description: "Servicio de baño y peluquería para mascotas.",
-    address: "Av. la Paz 1099, Miraflores 15074",
+    address: "Miraflores",
     location: _locations[5],
     score: 3,
+    image_pointer: "assets/marker_person.webp",
   ),
   MapMarker(
     image: "${_path}/logo-7.jpg",
@@ -94,14 +102,16 @@ final mapMarkers = [
     address: "Gonzáles Prada 1002-1086, Surquillo 15047",
     location: _locations[6],
     score: 5,
+    image_pointer: "assets/marker_house.png",
   ),
   MapMarker(
-    image: "${_path}/logo-8.jpg",
-    title: "Fur & Shine",
-    description: "Baños y cuidados personalizados.",
-    address: "Av. Gral. Mendiburu 397-299, Miraflores 15074",
+    image: "${_path}/logo-person-4.jpg",
+    title: "Emilia Ramirez P.",
+    description: "Baño, peluquería y spa para tus mascotas.",
+    address: "Miraflores",
     location: _locations[7],
     score: 2,
+    image_pointer: "assets/marker_person.webp",
   ),
   MapMarker(
     image: "${_path}/logo-9.jpg",
@@ -110,6 +120,7 @@ final mapMarkers = [
     address: "Armendáriz, Miraflores 15074",
     location: _locations[8],
     score: 3,
+    image_pointer: "assets/marker_house.png",
   ),
   MapMarker(
     image: "${_path}/logo-10.jpg",
@@ -118,6 +129,7 @@ final mapMarkers = [
     address: "Urb la Viñita, Barranco",
     location: _locations[9],
     score: 5,
+    image_pointer: "assets/marker_house.png",
   ),
   MapMarker(
     image: "${_path}/logo-11.jpg",
@@ -126,5 +138,6 @@ final mapMarkers = [
     address: "Fernando Venegas, Miraflores 15048",
     location: _locations[10],
     score: 0,
+    image_pointer: "assets/marker_house.png",
   ),
 ];

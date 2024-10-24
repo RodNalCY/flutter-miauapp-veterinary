@@ -9,11 +9,11 @@ import 'package:another_flushbar/flushbar.dart';
 
 const MAPBOX_ACCESS_TOKEN =
     "pk.eyJ1Ijoicm9kbmFsIiwiYSI6ImNtMmx3aHUyNTBoYWkybHB2cTdvZ2p4a3oifQ.TjBnXTGuCaJwJV_hQWUmxQ";
-const MAPBOX_STYLE = "mapbox/dark-v10";
-const MARKER_COLOR = Colors.cyan;
+const MAPBOX_STYLE = "mapbox/dark-v11";
+const MARKER_COLOR = Colors.white;
 final _myLocation = LatLng(-12.121145, -77.030404);
-const MARKER_SIZE_EXPANDED = 40.0;
-const MARKER_SIZE_SHRINKED = 25.0;
+const MARKER_SIZE_EXPANDED = 50.0;
+const MARKER_SIZE_SHRINKED = 40.0;
 
 class AnimatedMarkersMap extends StatefulWidget {
   const AnimatedMarkersMap({super.key});
@@ -42,8 +42,8 @@ class _AnimatedMarkersMapState extends State<AnimatedMarkersMap>
           point: mapItem.location,
           child: GestureDetector(
             onTap: () {
+              _selectedIndex = i;
               setState(() {
-                _selectedIndex = i;
                 _pageController.animateToPage(i,
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.elasticOut);
@@ -53,6 +53,7 @@ class _AnimatedMarkersMapState extends State<AnimatedMarkersMap>
             child: _LocationMarker(
               selected:
                   _selectedIndex == i, // Controla el estado del tamaño aquí
+              imagePath: mapItem.image_pointer,
             ),
           ),
         ),
@@ -154,9 +155,11 @@ class _AnimatedMarkersMapState extends State<AnimatedMarkersMap>
 }
 
 class _LocationMarker extends StatelessWidget {
-  const _LocationMarker({super.key, this.selected = false});
+  const _LocationMarker(
+      {super.key, this.selected = false, required this.imagePath});
 
   final bool selected;
+  final String imagePath; // Guardamos la ruta de la imagen
 
   @override
   Widget build(BuildContext context) {
@@ -166,7 +169,7 @@ class _LocationMarker extends StatelessWidget {
         height: size,
         width: size,
         duration: const Duration(milliseconds: 400),
-        child: Image.asset('assets/marker.png'),
+        child: Image.asset(imagePath),
       ),
     );
   }
@@ -293,7 +296,7 @@ class _MapItemDetails extends StatelessWidget {
             ),
             MaterialButton(
               padding: EdgeInsets.zero,
-              color: MARKER_COLOR,
+              color: Colors.black,
               elevation: 6,
               child: Text(
                 'CONTACTAR',
