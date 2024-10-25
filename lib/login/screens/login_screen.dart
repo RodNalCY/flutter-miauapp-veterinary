@@ -6,6 +6,7 @@ import 'package:miauapp_flutter_app/login/screens/recovery_screen.dart';
 import 'package:miauapp_flutter_app/login/screens/register_screen.dart';
 import 'package:miauapp_flutter_app/login/screens/register_socio_screen.dart';
 import 'package:miauapp_flutter_app/menu/tabbar/fab_tab_menu.dart';
+import 'package:miauapp_flutter_app/widgets/loading_dialog_widget.dart';
 import 'package:sqflite/sqflite.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -102,8 +103,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                             ),
                                             InkWell(
                                               onTap: () async {
-                                                await loadingScreen(
-                                                    context: context);
+                                                await LoadingDialogWidget.show(
+                                                    context: context,
+                                                    seconds: 3);
                                                 // Acción del botón
                                                 print('Botón presionado');
                                                 Navigator.push(
@@ -260,18 +262,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           ),
                                         ),
                                         onPressed: () async {
-                                          // onSuccess();
-                                          // await loadingScreen(context: context);
                                           await loginUser();
-                                          // Navigator.push(
-                                          //   context,
-                                          //   MaterialPageRoute(
-                                          //     builder: (context) => FabTabMenu(
-                                          //       selectedIndex: 0,
-                                          //     ),
-                                          //   ),
-                                          // );
-                                          // ;
                                         },
                                         child: const Text(
                                           'Ingresar',
@@ -291,8 +282,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 children: [
                                                   InkWell(
                                                     onTap: () async {
-                                                      await loadingScreen(
-                                                          context: context);
+                                                      await LoadingDialogWidget
+                                                          .show(
+                                                              context: context,
+                                                              seconds: 3);
                                                       // Acción del botón
                                                       print('Botón presionado');
                                                       Navigator.push(
@@ -358,8 +351,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   ),
                                                   InkWell(
                                                     onTap: () async {
-                                                      await loadingScreen(
-                                                          context: context);
+                                                      await LoadingDialogWidget
+                                                          .show(
+                                                              context: context,
+                                                              seconds: 3);
                                                       // Acción del botón
                                                       Navigator.push(
                                                         context,
@@ -417,7 +412,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
         print("-------------------------");
         onSuccess();
-        await loadingScreen(context: context);
+        await LoadingDialogWidget.show(context: context, seconds: 3);
         // Redirigir al usuario o mostrar mensaje de éxito
         Navigator.push(
           context,
@@ -436,28 +431,6 @@ class _LoginScreenState extends State<LoginScreen> {
     } else {
       onInputEmpty();
     }
-  }
-
-  Future<void> loadingScreen({required BuildContext context}) async {
-    // Mostrar el diálogo
-    final dialog = showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
-            child: CircularProgressIndicator(
-          color: Colors.white,
-        ));
-      },
-    );
-
-    // Esperar 5 segundos
-    await Future.delayed(Duration(seconds: 3));
-
-    // Cerrar el diálogo
-    Navigator.of(context).pop(); // Cierra el diálogo
-
-    // Espera a que el diálogo se cierre
-    await dialog;
   }
 
   void onInputEmpty() {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miauapp_flutter_app/login/screens/login_screen.dart';
+import 'package:miauapp_flutter_app/widgets/loading_dialog_widget.dart';
 
 class RecoveryScreen extends StatefulWidget {
   RecoveryScreen({Key? key}) : super(key: key);
@@ -104,8 +105,9 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                                             ),
                                             InkWell(
                                               onTap: () async {
-                                                await loadingScreen(
-                                                    context: context);
+                                                await LoadingDialogWidget.show(
+                                                    context: context,
+                                                    seconds: 3);
                                                 // Acción del botón
                                                 print('Botón presionado');
                                                 Navigator.push(
@@ -206,7 +208,8 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
                                           ),
                                         ),
                                         onPressed: () async {
-                                          await loadingScreen(context: context);
+                                          await LoadingDialogWidget.show(
+                                              context: context, seconds: 3);
                                           onSuccess();
                                         },
                                         child: const Text(
@@ -234,28 +237,6 @@ class _RecoveryScreenState extends State<RecoveryScreen> {
         ),
       ),
     );
-  }
-
-  Future<void> loadingScreen({required BuildContext context}) async {
-    // Mostrar el diálogo
-    final dialog = showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
-            child: CircularProgressIndicator(
-          color: Colors.white,
-        ));
-      },
-    );
-
-    // Esperar 5 segundos
-    await Future.delayed(Duration(seconds: 2));
-
-    // Cerrar el diálogo
-    Navigator.of(context).pop(); // Cierra el diálogo
-
-    // Espera a que el diálogo se cierre
-    await dialog;
   }
 
   void onSuccess() {

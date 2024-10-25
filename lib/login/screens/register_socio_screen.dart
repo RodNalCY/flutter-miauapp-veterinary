@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:miauapp_flutter_app/login/utils/text_formatters.dart';
+import 'package:miauapp_flutter_app/widgets/loading_dialog_widget.dart';
 
 class RegisterSocioScreen extends StatefulWidget {
   const RegisterSocioScreen({super.key});
@@ -623,7 +624,7 @@ class _RegisterSocioScreenState extends State<RegisterSocioScreen> {
         _dateController.text != "" &&
         _fileController.text != "" &&
         _validateEmail == false) {
-      await loadingScreen(context: context);
+      await LoadingDialogWidget.show(context: context, seconds: 3);
       final newUser = User(
           name: _nameController.text,
           email: _emailController.text,
@@ -735,28 +736,6 @@ class _RegisterSocioScreenState extends State<RegisterSocioScreen> {
         _dateController.text = DateFormat('dd-MM-yyyy').format(pickedDate);
       });
     }
-  }
-
-  Future<void> loadingScreen({required BuildContext context}) async {
-    // Mostrar el diálogo
-    final dialog = showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
-            child: CircularProgressIndicator(
-          color: Colors.white,
-        ));
-      },
-    );
-
-    // Esperar 5 segundos
-    await Future.delayed(Duration(seconds: 2));
-
-    // Cerrar el diálogo
-    Navigator.of(context).pop(); // Cierra el diálogo
-
-    // Espera a que el diálogo se cierre
-    await dialog;
   }
 
   void onErrorFile() {

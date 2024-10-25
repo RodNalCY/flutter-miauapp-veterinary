@@ -4,6 +4,7 @@ import 'package:miauapp_flutter_app/login/model/user.dart';
 import 'package:miauapp_flutter_app/login/screens/login_screen.dart';
 import 'package:intl/intl.dart';
 import 'package:miauapp_flutter_app/login/utils/text_formatters.dart';
+import 'package:miauapp_flutter_app/widgets/loading_dialog_widget.dart';
 
 class RegisterScreen extends StatefulWidget {
   RegisterScreen({Key? key}) : super(key: key);
@@ -137,8 +138,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             ),
                                             InkWell(
                                               onTap: () async {
-                                                await loadingScreen(
-                                                    context: context);
+                                                await LoadingDialogWidget.show(
+                                                    context: context,
+                                                    seconds: 3);
                                                 // Acción del botón
                                                 print('Botón presionado');
                                                 Navigator.push(
@@ -519,7 +521,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         _dateController.text != "" &&
         _validateEmail == false &&
         _telefonoController != "") {
-      await loadingScreen(context: context);
+      await LoadingDialogWidget.show(context: context, seconds: 3);
       final newUser = User(
         name: _nameController.text,
         email: _emailController.text,
@@ -563,28 +565,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
         _dateController.text = DateFormat('dd-MM-yyyy').format(pickedDate);
       });
     }
-  }
-
-  Future<void> loadingScreen({required BuildContext context}) async {
-    // Mostrar el diálogo
-    final dialog = showDialog(
-      context: context,
-      builder: (context) {
-        return const Center(
-            child: CircularProgressIndicator(
-          color: Colors.white,
-        ));
-      },
-    );
-
-    // Esperar 5 segundos
-    await Future.delayed(Duration(seconds: 2));
-
-    // Cerrar el diálogo
-    Navigator.of(context).pop(); // Cierra el diálogo
-
-    // Espera a que el diálogo se cierre
-    await dialog;
   }
 
   void onSuccess() {
