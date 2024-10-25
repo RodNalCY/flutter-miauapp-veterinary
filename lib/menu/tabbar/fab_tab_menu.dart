@@ -68,23 +68,24 @@ class _FabTabMenuState extends State<FabTabMenu> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          setState(() {
-            // currentScreen = AnimatedMarkersMap(user: widget.user);
-            // currentIndex = 4;
-            currentScreen = PedidoScreen(user: widget.user);
-            currentIndex = 5;
-          });
+          if (widget.user.role == "user") {
+            setState(() {
+              currentScreen = AnimatedMarkersMap(user: widget.user);
+              currentIndex = 4;
+            });
+          } else if (widget.user.role == "socio") {
+            setState(() {
+              currentScreen = PedidoScreen(user: widget.user);
+              currentIndex = 5;
+            });
+          }
         },
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),
         ),
         child: Icon(
-          currentIndex == 4
-              ? Icons.travel_explore
-              : currentIndex == 5
-                  ? Icons.diversity_3
-                  : Icons.pets,
+          widget.user.role == "user" ? Icons.travel_explore : Icons.diversity_3,
           color: currentIndex == 4 || currentIndex == 5
               ? color_active
               : color_inactive,

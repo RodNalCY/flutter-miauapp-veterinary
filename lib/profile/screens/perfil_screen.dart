@@ -85,6 +85,7 @@ class _PerfilScreenState extends State<PerfilScreen>
                   name: "Política de Privacidad",
                   icono: Icons.lock,
                   index: null,
+                  onTap: () {},
                 ),
                 SizedBox(
                   height: 10,
@@ -94,12 +95,14 @@ class _PerfilScreenState extends State<PerfilScreen>
                   name: "Recomendar esta app",
                   icono: Icons.stars,
                   index: null,
+                  onTap: () {},
                 ),
                 ItemMenu(
                   context,
                   name: "Compartir esta app",
                   icono: Icons.share,
                   index: null,
+                  onTap: () {},
                 ),
                 SizedBox(
                   height: 285,
@@ -113,12 +116,16 @@ class _PerfilScreenState extends State<PerfilScreen>
                         name: "Mensajeria",
                         icono: Icons.maps_ugc,
                         index: null,
+                        onTap: () {},
                       ),
                       ItemMenu(
                         context,
                         name: "Cerrar sesión",
                         icono: Icons.power_settings_new,
                         index: null,
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
                       ),
                     ],
                   ),
@@ -129,8 +136,13 @@ class _PerfilScreenState extends State<PerfilScreen>
     );
   }
 
-  Widget ItemMenu(BuildContext context,
-      {required String name, required IconData icono, required int? index}) {
+  Widget ItemMenu(
+    BuildContext context, {
+    required String name,
+    required IconData icono,
+    required int? index,
+    required VoidCallback onTap,
+  }) {
     return ListTile(
       leading: Icon(
         icono, // Se elimina 'const' ya que 'icono' es un parámetro
@@ -147,7 +159,7 @@ class _PerfilScreenState extends State<PerfilScreen>
           color: Colors.white,
         ),
       ),
-      onTap: () => {},
+      onTap: onTap,
     );
   }
 }
