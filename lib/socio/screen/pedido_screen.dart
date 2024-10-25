@@ -115,7 +115,10 @@ class _PedidoScreenState extends State<PedidoScreen> {
                       style: const TextStyle(
                           fontWeight: FontWeight.bold), // Resaltar el nombre
                     ),
-                    subtitle: Text(_cliente[index].ubicacion),
+                    subtitle: Text(
+                      _cliente[index].direccion,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                     trailing: Icon(Icons.arrow_forward_ios,
                         color: Colors.grey), // Flecha a la derecha
                     onTap: () async {

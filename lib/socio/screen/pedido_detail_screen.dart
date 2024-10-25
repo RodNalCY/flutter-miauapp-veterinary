@@ -10,7 +10,7 @@ const MAPBOX_ACCESS_TOKEN =
     "pk.eyJ1Ijoicm9kbmFsIiwiYSI6ImNtMmx3aHUyNTBoYWkybHB2cTdvZ2p4a3oifQ.TjBnXTGuCaJwJV_hQWUmxQ";
 const MAPBOX_STYLE = "mapbox/streets-v12";
 const MARKER_COLOR = Colors.blue;
-final _myLocation = LatLng(-12.121145, -77.030404);
+
 const MARKER_SIZE_EXPANDED = 50.0;
 const MARKER_SIZE_SHRINKED = 40.0;
 
@@ -25,9 +25,10 @@ class PedidoDetailScreen extends StatefulWidget {
 class _PedidoDetailScreenState extends State<PedidoDetailScreen>
     with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
-
+  late final LatLng _myLocation;
   @override
   void initState() {
+    _myLocation = LatLng(widget.cliente.latitud, widget.cliente.longitud);
     _animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 600));
     _animationController.repeat(reverse: true);
@@ -102,7 +103,7 @@ class _PedidoDetailScreenState extends State<PedidoDetailScreen>
                   _buildDetailField(
                     icon: Icons.location_on,
                     label: 'Ubicación',
-                    value: widget.cliente.ubicacion,
+                    value: widget.cliente.direccion,
                   ),
                   _buildDetailField(
                     icon: Icons.map,

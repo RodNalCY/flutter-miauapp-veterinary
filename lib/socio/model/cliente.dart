@@ -2,7 +2,7 @@ class Cliente {
   int? id;
   String name;
   String email;
-  String ubicacion;
+  String direccion;
   String referencia;
   String telefono;
   double latitud;
@@ -12,7 +12,7 @@ class Cliente {
     this.id,
     required this.name,
     required this.email,
-    required this.ubicacion,
+    required this.direccion,
     required this.referencia,
     required this.telefono,
     required this.latitud,
@@ -25,7 +25,7 @@ class Cliente {
       'id': id,
       'name': name,
       'email': email,
-      'ubicacion': ubicacion,
+      'direccion': direccion,
       'referencia': referencia,
       'telefono': telefono,
       'latitud': latitud,
@@ -39,7 +39,7 @@ class Cliente {
       id: map['id'],
       name: map['name'],
       email: map['email'],
-      ubicacion: map['ubicacion'],
+      direccion: map['direccion'],
       referencia: map['referencia'],
       telefono: map['telefono'],
       latitud: map['latitud'],

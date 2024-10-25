@@ -69,10 +69,10 @@ class _FabTabMenuState extends State<FabTabMenu> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
-            currentScreen = AnimatedMarkersMap(user: widget.user);
-            currentIndex = 4;
-            // currentScreen = PedidoScreen(user: widget.user);
-            // currentIndex = 5;
+            // currentScreen = AnimatedMarkersMap(user: widget.user);
+            // currentIndex = 4;
+            currentScreen = PedidoScreen(user: widget.user);
+            currentIndex = 5;
           });
         },
         backgroundColor: Colors.white,

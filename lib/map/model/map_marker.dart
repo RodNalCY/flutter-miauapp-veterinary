@@ -42,13 +42,13 @@ const _path = "assets/logos";
 
 final mapMarkers = [
   MapMarker(
-    image: "${_path}/logo-1.jpg",
-    title: "Pet Paradise",
+    image: "${_path}/logo-person-2.jpg",
+    title: "Victor Arana",
     description: "Baños y cuidados especiales para tus mascotas.",
-    address: "Edificio El Pardo, Av. José Pardo 422, Miraflores 15074",
+    address: "Llevamos el servicio hasta tu hogar.",
     location: _locations[0],
     score: 3,
-    image_pointer: "assets/marker_house.png",
+    image_pointer: "assets/marker_person.webp",
   ),
   MapMarker(
     image: "${_path}/logo-person-1.png",
@@ -60,16 +60,16 @@ final mapMarkers = [
     image_pointer: "assets/marker_person.webp",
   ),
   MapMarker(
-    image: "${_path}/logo-3.jpg",
-    title: "Pawfect Care",
+    image: "${_path}/logo-person-12.jpg",
+    title: "Lucia Villanueva",
     description: "Especialistas en baños para perros y gatos.",
-    address: "Antero Aspillaga 814-896, Surquillo 15047",
+    address: "Llevamos el servicio hasta tu hogar.",
     location: _locations[2],
     score: 5,
-    image_pointer: "assets/marker_house.png",
+    image_pointer: "assets/marker_person.webp",
   ),
   MapMarker(
-    image: "${_path}/logo-person-2.jpg",
+    image: "${_path}/logo-person-11.jpg",
     title: "Jose Antonio Aguilar",
     description: "Baño, peluquería y spa para tus mascotas.",
     address: "Llevamos el servicio hasta tu hogar.",
@@ -78,13 +78,13 @@ final mapMarkers = [
     image_pointer: "assets/marker_person.webp",
   ),
   MapMarker(
-    image: "${_path}/logo-5.jpg",
-    title: "Mundo Mascota",
+    image: "${_path}/logo-person-13.png",
+    title: "Maria Milagros Montes",
     description: "Baños relajantes para perros y gatos.",
-    address: "Petit Jean Ocharán, Miraflores 15074",
+    address: "Llevamos el servicio hasta tu hogar.",
     location: _locations[4],
     score: 4,
-    image_pointer: "assets/marker_house.png",
+    image_pointer: "assets/marker_person.webp",
   ),
   MapMarker(
     image: "${_path}/logo-person-3.png",
@@ -96,13 +96,13 @@ final mapMarkers = [
     image_pointer: "assets/marker_person.webp",
   ),
   MapMarker(
-    image: "${_path}/logo-7.jpg",
+    image: "${_path}/logo-person-13.jpg",
     title: "PeluDog - Estética",
     description: "Cuida la higiene de tu mascota con nuestros baños.",
-    address: "Gonzáles Prada 1002-1086, Surquillo 15047",
+    address: "Llevamos el servicio hasta tu hogar.",
     location: _locations[6],
     score: 5,
-    image_pointer: "assets/marker_house.png",
+    image_pointer: "assets/marker_person.webp",
   ),
   MapMarker(
     image: "${_path}/logo-person-4.jpg",
@@ -114,7 +114,7 @@ final mapMarkers = [
     image_pointer: "assets/marker_person.webp",
   ),
   MapMarker(
-    image: "${_path}/logo-9.jpg",
+    image: "${_path}/logo-2.jpg",
     title: "Woof & Meow",
     description: "Baños especializados para mascotas de todas las razas.",
     address: "Armendáriz, Miraflores 15074",
@@ -123,7 +123,7 @@ final mapMarkers = [
     image_pointer: "assets/marker_house.png",
   ),
   MapMarker(
-    image: "${_path}/logo-10.jpg",
+    image: "${_path}/logo-6.jpg",
     title: "VetLuxe - Estética y Bienestar Animal",
     description: "Baños completos y aromaterapia.",
     address: "Urb la Viñita, Barranco",
@@ -132,7 +132,7 @@ final mapMarkers = [
     image_pointer: "assets/marker_house.png",
   ),
   MapMarker(
-    image: "${_path}/logo-11.jpg",
+    image: "${_path}/logo-7.jpg",
     title: "Royal Paws",
     description: "Baño y cuidados para mascotas.",
     address: "Fernando Venegas, Miraflores 15048",

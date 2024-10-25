@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -150,7 +151,10 @@ class _AnimatedMarkersMapState extends State<AnimatedMarkersMap>
               itemCount: mapMarkers.length,
               itemBuilder: (context, index) {
                 final item = mapMarkers[index];
-                return _MapItemDetails(mapMarker: item);
+                return _MapItemDetails(
+                  mapMarker: item,
+                  user: widget.user,
+                );
               },
             ),
           )
@@ -221,7 +225,9 @@ class _MyLocationMarker extends AnimatedWidget {
 }
 
 class _MapItemDetails extends StatelessWidget {
-  const _MapItemDetails({Key? key, required this.mapMarker}) : super(key: key);
+  late User user;
+  _MapItemDetails({Key? key, required this.mapMarker, required this.user})
+      : super(key: key);
   final MapMarker mapMarker;
 
   @override
@@ -319,14 +325,15 @@ class _MapItemDetails extends StatelessWidget {
               ),
               onPressed: () async {
                 await registerCliente(
-                  title: mapMarker.title,
-                  context: context,
-                  name: "JHOYSI",
-                  email: "garcia@gmail.com",
-                  ubicacion: "Av Abancay",
-                  referencia: "Frente del Parque",
-                  telefono: "999888777",
-                );
+                    title: mapMarker.title,
+                    context: context,
+                    name: user.name,
+                    email: user.email,
+                    direccion: "C. Esperanza 144-206, Miraflores 15074",
+                    referencia: "Parque Kenedy de Miraflores",
+                    telefono: user.telefono,
+                    latitud: -12.120480,
+                    longitud: -77.028287);
               },
             )
           ],
@@ -340,19 +347,22 @@ class _MapItemDetails extends StatelessWidget {
     required BuildContext context,
     required String name,
     required String email,
-    required String ubicacion,
+    required String direccion,
     required String referencia,
     required String telefono,
+    required double latitud,
+    required double longitud,
   }) async {
     // await loadingScreen(context: context);
+    // final _myLocation = LatLng(-12.121145, -77.030404);
     final newCliente = Cliente(
       name: name,
       email: email,
-      ubicacion: ubicacion,
+      direccion: direccion,
       referencia: referencia,
       telefono: telefono,
-      latitud: -77.032555,
-      longitud: -77.025667,
+      latitud: latitud,
+      longitud: longitud,
     );
     await ClienteHelper().insertUser(newCliente);
     onSuccess(title: title, context: context);
