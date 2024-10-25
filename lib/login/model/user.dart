@@ -6,6 +6,7 @@ class User {
   String birthDate;
   String role;
   String file;
+  String telefono;
 
   User({
     this.id,
@@ -15,6 +16,7 @@ class User {
     required this.birthDate,
     required this.role,
     required this.file,
+    required this.telefono,
   });
 
   // Convertir un objeto User a un Map
@@ -27,6 +29,7 @@ class User {
       'birthDate': birthDate,
       'role': role,
       'file': file,
+      'telefono': telefono,
     };
   }
 
@@ -40,6 +43,7 @@ class User {
       birthDate: map['birthDate'],
       role: map['role'],
       file: map['file'],
+      telefono: map['telefono'],
     );
   }
 }

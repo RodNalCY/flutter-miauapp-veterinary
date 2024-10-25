@@ -38,7 +38,8 @@ class DatabaseHelper {
         password TEXT,
         birthDate TEXT,
         role TEXT,
-        file TEXT
+        file TEXT,
+        telefono TEXT
       )
     ''');
   }
@@ -64,5 +65,22 @@ class DatabaseHelper {
       return User.fromMap(results.first);
     }
     return null;
+  }
+
+  Future<List<User>> getUsers() async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query('users');
+    return List.generate(maps.length, (i) {
+      return User(
+        id: maps[i]['id'],
+        name: maps[i]['name'],
+        email: maps[i]['email'],
+        password: maps[i]['password'],
+        birthDate: maps[i]['birthDate'],
+        role: maps[i]['role'],
+        file: maps[i]['file'],
+        telefono: maps[i]['telefono'],
+      );
+    });
   }
 }

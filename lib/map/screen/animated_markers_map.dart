@@ -7,11 +7,13 @@ import 'package:miauapp_flutter_app/login/model/user.dart';
 import 'package:miauapp_flutter_app/map/model/map_marker.dart';
 import 'package:miauapp_flutter_app/menu/drawer/side_menu.dart';
 import 'package:another_flushbar/flushbar.dart';
+import 'package:miauapp_flutter_app/socio/controller/cliente_helper.dart';
+import 'package:miauapp_flutter_app/socio/model/cliente.dart';
 
 const MAPBOX_ACCESS_TOKEN =
     "pk.eyJ1Ijoicm9kbmFsIiwiYSI6ImNtMmx3aHUyNTBoYWkybHB2cTdvZ2p4a3oifQ.TjBnXTGuCaJwJV_hQWUmxQ";
-const MAPBOX_STYLE = "mapbox/dark-v11";
-const MARKER_COLOR = Colors.white;
+const MAPBOX_STYLE = "mapbox/streets-v12";
+const MARKER_COLOR = Colors.redAccent;
 final _myLocation = LatLng(-12.121145, -77.030404);
 const MARKER_SIZE_EXPANDED = 50.0;
 const MARKER_SIZE_SHRINKED = 40.0;
@@ -110,9 +112,9 @@ class _AnimatedMarkersMapState extends State<AnimatedMarkersMap>
         children: [
           FlutterMap(
             options: MapOptions(
-              minZoom: 5,
-              maxZoom: 15,
-              initialZoom: 14,
+              minZoom: 13,
+              maxZoom: 16,
+              initialZoom: 15,
               initialCenter: _myLocation,
             ),
             children: [
@@ -226,73 +228,78 @@ class _MapItemDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final _styleTitle = TextStyle(
       color: Colors.black,
-      fontSize: 20,
+      fontSize: 18,
       fontWeight: FontWeight.bold,
     );
-    final _styleAdress = TextStyle(color: Colors.grey[800], fontSize: 14);
+    final _styleDesciption = TextStyle(color: Colors.grey[800], fontSize: 13);
+    final _styleAdress = TextStyle(color: Colors.grey[800], fontSize: 10);
     // TODO: implement build
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20, top: 20, left: 10, right: 10),
+      padding: const EdgeInsets.only(bottom: 20, top: 40, left: 10, right: 10),
       child: Card(
         margin: EdgeInsets.zero,
         color: Colors.white,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Expanded(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      // Establece el ancho
-                      //height: 200, // Establece la altura
-                      child: ClipOval(
-                        // Recorta la imagen de manera circular
-                        child: Image.asset(
-                          mapMarker.image,
-                          fit: BoxFit
-                              .contain, // Ajusta la imagen para que se contenga dentro del contenedor
+            Row(
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
+                  child: ClipOval(
+                    child: Image(
+                      image: AssetImage(mapMarker.image),
+                      height: 110,
+                      width: 110,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10), // Espacio entre la imagen y el texto
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment
+                        .start, // Alinea el texto a la izquierda
+                    children: [
+                      Text(
+                        mapMarker.title,
+                        style: _styleTitle,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      SizedBox(
+                        height: 4,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2),
+                        child: Text(
+                          mapMarker.description,
+                          style: _styleDesciption,
+                          overflow: TextOverflow.clip,
                         ),
                       ),
-                    ),
+                      SizedBox(
+                        height: 4,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2),
+                        child: Text(
+                          mapMarker.address,
+                          style: _styleAdress,
+                          overflow: TextOverflow.clip,
+                        ),
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          mapMarker.title,
-                          style: _styleTitle,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: Text(
-                            mapMarker.description,
-                            style: _styleAdress,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: Text(
-                            mapMarker.address,
-                            style: _styleAdress,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
             Container(
               color: Colors.white,
               child: Center(
                 child: StarRating(
                   rating: mapMarker.score, // Calificación dinámica
-                  starSize: 30.0, // Tamaño de las estrellas
+                  starSize: 22.0, // Tamaño de las estrellas
                   filledStarColor: Colors.amber, // Estrellas llenas
                   emptyStarColor: Colors.amber.shade400, // Estrellas vacías
                 ),
@@ -301,6 +308,7 @@ class _MapItemDetails extends StatelessWidget {
             MaterialButton(
               padding: EdgeInsets.zero,
               color: Colors.black,
+              height: 35,
               elevation: 6,
               child: Text(
                 'CONTACTAR',
@@ -309,14 +317,48 @@ class _MapItemDetails extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              onPressed: () {
-                onSuccess(title: mapMarker.title, context: context);
+              onPressed: () async {
+                await registerCliente(
+                  title: mapMarker.title,
+                  context: context,
+                  name: "JHOYSI",
+                  email: "garcia@gmail.com",
+                  ubicacion: "Av Abancay",
+                  referencia: "Frente del Parque",
+                  telefono: "999888777",
+                );
               },
             )
           ],
         ),
       ),
     );
+  }
+
+  Future<void> registerCliente({
+    required String title,
+    required BuildContext context,
+    required String name,
+    required String email,
+    required String ubicacion,
+    required String referencia,
+    required String telefono,
+  }) async {
+    // await loadingScreen(context: context);
+    final newCliente = Cliente(
+      name: name,
+      email: email,
+      ubicacion: ubicacion,
+      referencia: referencia,
+      telefono: telefono,
+      latitud: -77.032555,
+      longitud: -77.025667,
+    );
+    await ClienteHelper().insertUser(newCliente);
+    onSuccess(title: title, context: context);
+    print("------------------------------------------");
+    print('Usuario registrado: ${newCliente.name}');
+    print("------------------------------------------");
   }
 
   void onSuccess({required String title, required BuildContext context}) {
@@ -347,24 +389,27 @@ class StarRating extends StatelessWidget {
     this.maxRating = 5,
     this.filledStarColor = Colors.amber,
     this.emptyStarColor = Colors.grey,
-    this.starSize = 24.0,
+    this.starSize = 20,
   });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
-      children: List.generate(maxRating, (index) {
-        return Icon(
-          index < rating
-              ? Icons.star
-              : Icons.star_border, // Estrella llena o vacía
-          color: index < rating
-              ? filledStarColor
-              : emptyStarColor, // Cambiar el color según el índice
-          size: starSize, // Ajustar el tamaño de la estrella
-        );
-      }),
+      children: List.generate(
+        maxRating,
+        (index) {
+          return Icon(
+            index < rating
+                ? Icons.star
+                : Icons.star_border, // Estrella llena o vacía
+            color: index < rating
+                ? filledStarColor
+                : emptyStarColor, // Cambiar el color según el índice
+            size: starSize, // Ajustar el tamaño de la estrella
+          );
+        },
+      ),
     );
   }
 }

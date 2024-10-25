@@ -24,6 +24,7 @@ class _RegisterSocioScreenState extends State<RegisterSocioScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _telefonoController = TextEditingController();
   late bool _passwordVisible;
 
   late bool _validateEmail;
@@ -82,6 +83,7 @@ class _RegisterSocioScreenState extends State<RegisterSocioScreen> {
     _nameController.text = "";
     _dateController.text = "";
     _fileController.text = "";
+    _telefonoController.text = "";
   }
 
   @override
@@ -91,6 +93,7 @@ class _RegisterSocioScreenState extends State<RegisterSocioScreen> {
     _nameController.dispose();
     _dateController.dispose();
     _fileController.dispose();
+    _telefonoController.dispose();
     super.dispose();
   }
 
@@ -451,6 +454,61 @@ class _RegisterSocioScreenState extends State<RegisterSocioScreen> {
                                       Container(
                                         alignment: Alignment.centerLeft,
                                         child: const Text(
+                                          "TELÉFONO",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 12,
+                                            vertical: 5,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color:
+                                                Colors.black.withOpacity(0.8),
+                                            borderRadius:
+                                                BorderRadius.circular(3),
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                child: TextFormField(
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                  controller:
+                                                      _telefonoController,
+                                                  style: const TextStyle(
+                                                      color: Colors.white),
+                                                  decoration: InputDecoration(
+                                                    border: InputBorder.none,
+                                                    hintStyle: TextStyle(
+                                                      color: Colors.white
+                                                          .withOpacity(0.5),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              const IconButton(
+                                                icon: Icon(Icons.smartphone,
+                                                    color: Colors.white),
+                                                onPressed: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Container(
+                                        alignment: Alignment.centerLeft,
+                                        child: const Text(
                                           "DOCUMENTO",
                                           style: TextStyle(
                                             fontSize: 20,
@@ -567,13 +625,13 @@ class _RegisterSocioScreenState extends State<RegisterSocioScreen> {
         _validateEmail == false) {
       await loadingScreen(context: context);
       final newUser = User(
-        name: _nameController.text,
-        email: _emailController.text,
-        password: _passwordController.text,
-        birthDate: _dateController.text,
-        role: "socio",
-        file: _fileController.text,
-      );
+          name: _nameController.text,
+          email: _emailController.text,
+          password: _passwordController.text,
+          birthDate: _dateController.text,
+          role: "socio",
+          file: _fileController.text,
+          telefono: "-");
 
       await DatabaseHelper().insertUser(newUser);
       onSuccess();

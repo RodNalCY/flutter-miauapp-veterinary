@@ -5,6 +5,7 @@ import 'package:miauapp_flutter_app/map/screen/animated_markers_map.dart';
 import 'package:miauapp_flutter_app/pay/screens/pay_screen.dart';
 import 'package:miauapp_flutter_app/profile/screens/perfil_screen.dart';
 import 'package:miauapp_flutter_app/search/screens/search_screen.dart';
+import 'package:miauapp_flutter_app/socio/screen/pedido_screen.dart';
 
 class FabTabMenu extends StatefulWidget {
   late int selectedIndex;
@@ -40,6 +41,7 @@ class _FabTabMenuState extends State<FabTabMenu> {
       SearchScreen(user: widget.user),
       PerfilScreen(user: widget.user),
       AnimatedMarkersMap(user: widget.user),
+      PedidoScreen(user: widget.user),
     ];
     super.initState();
   }
@@ -56,7 +58,9 @@ class _FabTabMenuState extends State<FabTabMenu> {
                 ? SearchScreen(user: widget.user)
                 : currentIndex == 3
                     ? PerfilScreen(user: widget.user)
-                    : AnimatedMarkersMap(user: widget.user);
+                    : currentIndex == 4
+                        ? AnimatedMarkersMap(user: widget.user)
+                        : PedidoScreen(user: widget.user);
     return Scaffold(
       body: PageStorage(
         bucket: bucket,
@@ -67,6 +71,8 @@ class _FabTabMenuState extends State<FabTabMenu> {
           setState(() {
             currentScreen = AnimatedMarkersMap(user: widget.user);
             currentIndex = 4;
+            // currentScreen = PedidoScreen(user: widget.user);
+            // currentIndex = 5;
           });
         },
         backgroundColor: Colors.white,
@@ -74,8 +80,14 @@ class _FabTabMenuState extends State<FabTabMenu> {
           borderRadius: BorderRadius.circular(50),
         ),
         child: Icon(
-          Icons.add_location_alt,
-          color: currentIndex == 4 ? color_active : color_inactive,
+          currentIndex == 4
+              ? Icons.travel_explore
+              : currentIndex == 5
+                  ? Icons.diversity_3
+                  : Icons.pets,
+          color: currentIndex == 4 || currentIndex == 5
+              ? color_active
+              : color_inactive,
           size: 28,
         ),
       ),

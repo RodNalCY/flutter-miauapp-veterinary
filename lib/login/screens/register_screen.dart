@@ -20,6 +20,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _telefonoController = TextEditingController();
   late bool _passwordVisible;
 
   late bool _validateEmail;
@@ -37,6 +38,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _passwordController.text = "";
     _nameController.text = "";
     _dateController.text = "";
+    _telefonoController.text = "";
   }
 
   @override
@@ -46,6 +48,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _passwordController.dispose();
     _nameController.dispose();
     _dateController.dispose();
+    _telefonoController.dispose();
     super.dispose();
   }
 
@@ -403,6 +406,61 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           ),
                                         ),
                                       ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Container(
+                                        alignment: Alignment.centerLeft,
+                                        child: const Text(
+                                          "TELÉFONO",
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 12,
+                                            vertical: 5,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color:
+                                                Colors.black.withOpacity(0.8),
+                                            borderRadius:
+                                                BorderRadius.circular(3),
+                                          ),
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                child: TextFormField(
+                                                  keyboardType:
+                                                      TextInputType.number,
+                                                  controller:
+                                                      _telefonoController,
+                                                  style: const TextStyle(
+                                                      color: Colors.white),
+                                                  decoration: InputDecoration(
+                                                    border: InputBorder.none,
+                                                    hintStyle: TextStyle(
+                                                      color: Colors.white
+                                                          .withOpacity(0.5),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              const IconButton(
+                                                icon: Icon(Icons.smartphone,
+                                                    color: Colors.white),
+                                                onPressed: null,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
                                       const Padding(
                                         padding: EdgeInsets.only(top: 40.0),
                                       ),
@@ -459,7 +517,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         _emailController.text != "" &&
         _passwordController.text != "" &&
         _dateController.text != "" &&
-        _validateEmail == false) {
+        _validateEmail == false &&
+        _telefonoController != "") {
       await loadingScreen(context: context);
       final newUser = User(
         name: _nameController.text,
@@ -468,11 +527,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
         birthDate: _dateController.text,
         role: "user",
         file: "-",
+        telefono: _telefonoController.text,
       );
 
       await DatabaseHelper().insertUser(newUser);
       onSuccess();
-      print('Usuario registrado: ${newUser.name}');
+      print('Usuario Name: ${newUser.name}');
+      print('Usuario Tele: ${newUser.telefono}');
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => LoginScreen()),
