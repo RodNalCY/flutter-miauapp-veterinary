@@ -9,6 +9,7 @@ class MapMarker {
     required this.location,
     required this.score,
     required this.image_pointer,
+    required this.price,
   });
 
   final String image;
@@ -18,6 +19,7 @@ class MapMarker {
   final LatLng location;
   final int score;
   final String image_pointer;
+  final String price;
 }
 
 final _locations = [
@@ -49,6 +51,7 @@ final mapMarkers = [
     location: _locations[0],
     score: 3,
     image_pointer: "assets/marker_person.webp",
+    price: "68.00",
   ),
   MapMarker(
     image: "${_path}/logo-person-1.png",
@@ -58,6 +61,7 @@ final mapMarkers = [
     location: _locations[1],
     score: 4,
     image_pointer: "assets/marker_person.webp",
+    price: "78.00",
   ),
   MapMarker(
     image: "${_path}/logo-person-12.jpg",
@@ -67,6 +71,7 @@ final mapMarkers = [
     location: _locations[2],
     score: 5,
     image_pointer: "assets/marker_person.webp",
+    price: "120.00",
   ),
   MapMarker(
     image: "${_path}/logo-person-11.jpg",
@@ -76,6 +81,7 @@ final mapMarkers = [
     location: _locations[3],
     score: 4,
     image_pointer: "assets/marker_person.webp",
+    price: "75.00",
   ),
   MapMarker(
     image: "${_path}/logo-person-13.png",
@@ -85,6 +91,7 @@ final mapMarkers = [
     location: _locations[4],
     score: 4,
     image_pointer: "assets/marker_person.webp",
+    price: "73.00",
   ),
   MapMarker(
     image: "${_path}/logo-person-3.png",
@@ -94,6 +101,7 @@ final mapMarkers = [
     location: _locations[5],
     score: 3,
     image_pointer: "assets/marker_person.webp",
+    price: "55.00",
   ),
   MapMarker(
     image: "${_path}/logo-person-13.jpg",
@@ -103,6 +111,7 @@ final mapMarkers = [
     location: _locations[6],
     score: 5,
     image_pointer: "assets/marker_person.webp",
+    price: "125.00",
   ),
   MapMarker(
     image: "${_path}/logo-person-4.jpg",
@@ -112,6 +121,7 @@ final mapMarkers = [
     location: _locations[7],
     score: 4,
     image_pointer: "assets/marker_person.webp",
+    price: "95.00",
   ),
   MapMarker(
     image: "${_path}/logo-2.jpg",
@@ -121,6 +131,7 @@ final mapMarkers = [
     location: _locations[8],
     score: 5,
     image_pointer: "assets/marker_house.png",
+    price: "150.00",
   ),
   MapMarker(
     image: "${_path}/logo-6.jpg",
@@ -130,6 +141,7 @@ final mapMarkers = [
     location: _locations[9],
     score: 4,
     image_pointer: "assets/marker_house.png",
+    price: "95.00",
   ),
   MapMarker(
     image: "${_path}/logo-7.jpg",
@@ -139,5 +151,6 @@ final mapMarkers = [
     location: _locations[10],
     score: 3,
     image_pointer: "assets/marker_house.png",
+    price: "58.00",
   ),
 ];

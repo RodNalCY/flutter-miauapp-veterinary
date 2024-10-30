@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:miauapp_flutter_app/socio/model/cliente.dart';
+import 'package:miauapp_flutter_app/widgets/loading_dialog_widget.dart';
 
 const MAPBOX_ACCESS_TOKEN =
     "pk.eyJ1Ijoicm9kbmFsIiwiYSI6ImNtMmx3aHUyNTBoYWkybHB2cTdvZ2p4a3oifQ.TjBnXTGuCaJwJV_hQWUmxQ";
@@ -189,6 +190,8 @@ class _PedidoDetailScreenState extends State<PedidoDetailScreen>
                     ),
                     onPressed: () async {
                       // await registerUser();
+                      await LoadingDialogWidget.show(
+                          context: context, seconds: 3);
                       onSuccess(name: widget.cliente.name, context: context);
                     },
                     child: const Text(
@@ -241,7 +244,7 @@ class _PedidoDetailScreenState extends State<PedidoDetailScreen>
         Icons.forward_to_inbox,
         color: Colors.white,
       ),
-      backgroundColor: Colors.cyan,
+      backgroundColor: Colors.blue,
     ).show(context);
   }
 }

@@ -10,6 +10,7 @@ import 'package:miauapp_flutter_app/menu/drawer/side_menu.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:miauapp_flutter_app/socio/controller/cliente_helper.dart';
 import 'package:miauapp_flutter_app/socio/model/cliente.dart';
+import 'package:miauapp_flutter_app/widgets/loading_dialog_widget.dart';
 
 const MAPBOX_ACCESS_TOKEN =
     "pk.eyJ1Ijoicm9kbmFsIiwiYSI6ImNtMmx3aHUyNTBoYWkybHB2cTdvZ2p4a3oifQ.TjBnXTGuCaJwJV_hQWUmxQ";
@@ -241,103 +242,242 @@ class _MapItemDetails extends StatelessWidget {
     final _styleAdress = TextStyle(color: Colors.grey[800], fontSize: 10);
     // TODO: implement build
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20, top: 40, left: 10, right: 10),
-      child: Card(
-        margin: EdgeInsets.zero,
-        color: Colors.white,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Row(
+      padding: const EdgeInsets.only(bottom: 20, top: 20, left: 10, right: 10),
+      // child: Card(
+      //   margin: EdgeInsets.zero,
+      //   color: Colors.white,
+      //   child: Column(
+      //     crossAxisAlignment: CrossAxisAlignment.stretch,
+      //     children: [
+      //       Row(
+      //         children: [
+      //           Padding(
+      //             padding:
+      //                 const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
+      //             child: ClipOval(
+      //               child: Image(
+      //                 image: AssetImage(mapMarker.image),
+      //                 height: 110,
+      //                 width: 110,
+      //                 fit: BoxFit.cover,
+      //               ),
+      //             ),
+      //           ),
+      //           const SizedBox(width: 10), // Espacio entre la imagen y el texto
+      //           Expanded(
+      //             child: Column(
+      //               crossAxisAlignment: CrossAxisAlignment
+      //                   .start, // Alinea el texto a la izquierda
+      //               children: [
+      //                 Text(
+      //                   mapMarker.title,
+      //                   style: _styleTitle,
+      //                   overflow: TextOverflow.ellipsis,
+      //                 ),
+      //                 SizedBox(
+      //                   height: 4,
+      //                 ),
+      //                 Padding(
+      //                   padding: const EdgeInsets.symmetric(horizontal: 2),
+      //                   child: Text(
+      //                     mapMarker.description,
+      //                     style: _styleDesciption,
+      //                     overflow: TextOverflow.clip,
+      //                   ),
+      //                 ),
+      //                 SizedBox(
+      //                   height: 4,
+      //                 ),
+      //                 Padding(
+      //                   padding: const EdgeInsets.symmetric(horizontal: 2),
+      //                   child: Text(
+      //                     mapMarker.address,
+      //                     style: _styleAdress,
+      //                     overflow: TextOverflow.clip,
+      //                   ),
+      //                 ),
+      //               ],
+      //             ),
+      //           ),
+      //         ],
+      //       ),
+      //       Container(
+      //         color: Colors.white,
+      //         child: Center(
+      //           child: StarRating(
+      //             rating: mapMarker.score, // Calificación dinámica
+      //             starSize: 22.0, // Tamaño de las estrellas
+      //             filledStarColor: Colors.amber, // Estrellas llenas
+      //             emptyStarColor: Colors.amber.shade400, // Estrellas vacías
+      //           ),
+      //         ),
+      //       ),
+      //       MaterialButton(
+      //         padding: EdgeInsets.zero,
+      //         color: Colors.blue,
+      //         height: 35,
+      //         elevation: 6,
+      //         child: Text(
+      //           'CONTACTAR',
+      //           style: TextStyle(
+      //             fontWeight: FontWeight.bold,
+      //             color: Colors.white,
+      //           ),
+      //         ),
+      //         onPressed: () async {
+      //           await registerCliente(
+      //               title: mapMarker.title,
+      //               context: context,
+      //               name: user.name,
+      //               email: user.email,
+      //               direccion: "C. Esperanza 144-206, Miraflores 15074",
+      //               referencia: "Parque Kenedy de Miraflores",
+      //               telefono: user.telefono,
+      //               latitud: -12.120480,
+      //               longitud: -77.028287);
+      //         },
+      //       )
+      //     ],
+      //   ),
+      // ),
+
+      child: Stack(
+        children: [
+          Card(
+            margin: EdgeInsets.zero,
+            color: Colors.white,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
-                  child: ClipOval(
-                    child: Image(
-                      image: AssetImage(mapMarker.image),
-                      height: 110,
-                      width: 110,
-                      fit: BoxFit.cover,
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 8.0, right: 8.0, top: 25.0),
+                      child: ClipOval(
+                        child: Image(
+                          image: AssetImage(mapMarker.image),
+                          height: 110,
+                          width: 110,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                        width: 10), // Espacio entre la imagen y el texto
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            mapMarker.title,
+                            style: _styleTitle,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          SizedBox(height: 4),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 2),
+                            child: Text(
+                              mapMarker.description,
+                              style: _styleDesciption,
+                              overflow: TextOverflow.clip,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 2),
+                            child: Text(
+                              mapMarker.address,
+                              style: _styleAdress,
+                              overflow: TextOverflow.clip,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  color: Colors.white,
+                  child: Center(
+                    child: StarRating(
+                      rating: mapMarker.score,
+                      starSize: 22.0,
+                      filledStarColor: Colors.amber,
+                      emptyStarColor: Colors.amber.shade400,
                     ),
                   ),
                 ),
-                const SizedBox(width: 10), // Espacio entre la imagen y el texto
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment
-                        .start, // Alinea el texto a la izquierda
-                    children: [
-                      Text(
-                        mapMarker.title,
-                        style: _styleTitle,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      SizedBox(
-                        height: 4,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 2),
-                        child: Text(
-                          mapMarker.description,
-                          style: _styleDesciption,
-                          overflow: TextOverflow.clip,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 4,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 2),
-                        child: Text(
-                          mapMarker.address,
-                          style: _styleAdress,
-                          overflow: TextOverflow.clip,
-                        ),
-                      ),
-                    ],
+                MaterialButton(
+                  padding: EdgeInsets.zero,
+                  color: Colors.blue,
+                  height: 35,
+                  elevation: 6,
+                  child: Text(
+                    'CONTACTAR',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
+                  onPressed: () async {
+                    await registerCliente(
+                      title: mapMarker.title,
+                      context: context,
+                      name: user.name,
+                      email: user.email,
+                      direccion: "C. Esperanza 144-206, Miraflores 15074",
+                      referencia: "Parque Kenedy de Miraflores",
+                      telefono: user.telefono,
+                      latitud: -12.120480,
+                      longitud: -77.028287,
+                    );
+                  },
+                )
               ],
             ),
-            Container(
-              color: Colors.white,
-              child: Center(
-                child: StarRating(
-                  rating: mapMarker.score, // Calificación dinámica
-                  starSize: 22.0, // Tamaño de las estrellas
-                  filledStarColor: Colors.amber, // Estrellas llenas
-                  emptyStarColor: Colors.amber.shade400, // Estrellas vacías
+          ),
+          Positioned(
+            top: 120,
+            right: 0,
+            bottom: 55,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 5.0),
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10.0),
+                  bottomLeft: Radius.circular(10.0),
                 ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    offset: Offset(2, 2),
+                    blurRadius: 8,
+                  ),
+                ],
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.payments,
+                    color: Colors.white,
+                    size: 18,
+                  ),
+                  SizedBox(width: 5),
+                  Text(
+                    'S/${mapMarker.price}',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
             ),
-            MaterialButton(
-              padding: EdgeInsets.zero,
-              color: Colors.black,
-              height: 35,
-              elevation: 6,
-              child: Text(
-                'CONTACTAR',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-              onPressed: () async {
-                await registerCliente(
-                    title: mapMarker.title,
-                    context: context,
-                    name: user.name,
-                    email: user.email,
-                    direccion: "C. Esperanza 144-206, Miraflores 15074",
-                    referencia: "Parque Kenedy de Miraflores",
-                    telefono: user.telefono,
-                    latitud: -12.120480,
-                    longitud: -77.028287);
-              },
-            )
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -365,6 +505,7 @@ class _MapItemDetails extends StatelessWidget {
       longitud: longitud,
     );
     await ClienteHelper().insertUser(newCliente);
+    await LoadingDialogWidget.show(context: context, seconds: 3);
     onSuccess(title: title, context: context);
     print("------------------------------------------");
     print('Usuario registrado: ${newCliente.name}');
@@ -382,7 +523,7 @@ class _MapItemDetails extends StatelessWidget {
         Icons.forward_to_inbox,
         color: Colors.white,
       ),
-      backgroundColor: Colors.cyan,
+      backgroundColor: Colors.blue,
     ).show(context);
   }
 }

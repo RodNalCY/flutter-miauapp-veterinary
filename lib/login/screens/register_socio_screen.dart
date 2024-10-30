@@ -138,6 +138,9 @@ class _RegisterSocioScreenState extends State<RegisterSocioScreen> {
                             key: _formKey,
                             child: Column(
                               children: [
+                                SizedBox(
+                                  height: 35,
+                                ),
                                 RichText(
                                   text: const TextSpan(
                                     children: [
@@ -164,7 +167,8 @@ class _RegisterSocioScreenState extends State<RegisterSocioScreen> {
                                   textAlign: TextAlign.center,
                                 ),
                                 Container(
-                                  margin: const EdgeInsets.all(20.0),
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 15),
                                   child: Center(
                                     child: Column(
                                       mainAxisAlignment:
@@ -562,7 +566,7 @@ class _RegisterSocioScreenState extends State<RegisterSocioScreen> {
                                         ),
                                       ),
                                       SizedBox(
-                                        height: 20,
+                                        height: 15,
                                       ),
                                       if (_selectedFile != null)
                                         _buildFilePreview(_selectedFile!),
@@ -595,8 +599,8 @@ class _RegisterSocioScreenState extends State<RegisterSocioScreen> {
                                           style: TextStyle(fontSize: 18),
                                         ),
                                       ),
-                                      const Padding(
-                                        padding: EdgeInsets.only(top: 40.0),
+                                      SizedBox(
+                                        height: 15,
                                       ),
                                     ],
                                   ),
@@ -623,6 +627,7 @@ class _RegisterSocioScreenState extends State<RegisterSocioScreen> {
         _passwordController.text != "" &&
         _dateController.text != "" &&
         _fileController.text != "" &&
+        _telefonoController.text != "" &&
         _validateEmail == false) {
       await LoadingDialogWidget.show(context: context, seconds: 3);
       final newUser = User(
@@ -632,7 +637,7 @@ class _RegisterSocioScreenState extends State<RegisterSocioScreen> {
           birthDate: _dateController.text,
           role: "socio",
           file: _fileController.text,
-          telefono: "-");
+          telefono: _telefonoController.text);
 
       await DatabaseHelper().insertUser(newUser);
       onSuccess();

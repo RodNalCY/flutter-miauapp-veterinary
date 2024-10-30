@@ -60,7 +60,7 @@ class _SideMenuState extends State<SideMenu> {
           ItemMenu(context, name: "Tu cuenta", icono: Icons.person, index: 3),
           ItemMenu(context, name: "Home", icono: Icons.home_filled, index: 0),
           ItemMenu(context, name: "Pagos", icono: Icons.payment, index: 1),
-          ItemMenu(context, name: "Buscar", icono: Icons.search, index: 2),
+          // ItemMenu(context, name: "Buscar", icono: Icons.search, index: 2),
           ItemMenu(
             context,
             name: "Servicios",

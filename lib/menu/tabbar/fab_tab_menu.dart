@@ -6,6 +6,7 @@ import 'package:miauapp_flutter_app/pay/screens/pay_screen.dart';
 import 'package:miauapp_flutter_app/profile/screens/perfil_screen.dart';
 import 'package:miauapp_flutter_app/search/screens/search_screen.dart';
 import 'package:miauapp_flutter_app/socio/screen/pedido_screen.dart';
+import 'package:miauapp_flutter_app/socio/screen/public_service_screen.dart';
 
 class FabTabMenu extends StatefulWidget {
   late int selectedIndex;
@@ -42,6 +43,7 @@ class _FabTabMenuState extends State<FabTabMenu> {
       PerfilScreen(user: widget.user),
       AnimatedMarkersMap(user: widget.user),
       PedidoScreen(user: widget.user),
+      PublicServiceScreen(user: widget.user),
     ];
     super.initState();
   }
@@ -60,7 +62,9 @@ class _FabTabMenuState extends State<FabTabMenu> {
                     ? PerfilScreen(user: widget.user)
                     : currentIndex == 4
                         ? AnimatedMarkersMap(user: widget.user)
-                        : PedidoScreen(user: widget.user);
+                        : currentIndex == 5
+                            ? PedidoScreen(user: widget.user)
+                            : PublicServiceScreen(user: widget.user);
     return Scaffold(
       body: PageStorage(
         bucket: bucket,
@@ -170,25 +174,37 @@ class _FabTabMenuState extends State<FabTabMenu> {
                 children: [
                   MaterialButton(
                     onPressed: () {
-                      setState(() {
-                        currentScreen = SearchScreen(user: widget.user);
-                        currentIndex = 2;
-                      });
+                      if (widget.user.role == "user") {
+                        setState(() {
+                          currentScreen = SearchScreen(user: widget.user);
+                          currentIndex = 2;
+                        });
+                      } else if (widget.user.role == "socio") {
+                        setState(() {
+                          currentScreen =
+                              PublicServiceScreen(user: widget.user);
+                          currentIndex = 6;
+                        });
+                      }
                     },
                     minWidth: 50,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(
-                          size: currentIndex == 2 ? 30 : 25,
-                          Icons.search,
-                          color:
-                              currentIndex == 2 ? color_active : color_inactive,
+                          size:
+                              currentIndex == 2 || currentIndex == 6 ? 30 : 25,
+                          widget.user.role == "user"
+                              ? Icons.search
+                              : Icons.public,
+                          color: currentIndex == 2 || currentIndex == 6
+                              ? color_active
+                              : color_inactive,
                         ),
                         Text(
-                          "Buscar",
+                          widget.user.role == "user" ? "Buscar" : "Publicar",
                           style: TextStyle(
-                            color: currentIndex == 2
+                            color: currentIndex == 2 || currentIndex == 6
                                 ? color_active
                                 : color_inactive,
                           ),

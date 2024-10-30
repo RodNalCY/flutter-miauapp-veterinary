@@ -62,8 +62,13 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.all(16),
               child: Center(
                 child: Text(
-                  '¿Qué servicio deseas hoy?',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  widget.user.role == "user"
+                      ? "¿Qué servicio deseas hoy?"
+                      : "¿En qué lugar brindarás servicio hoy?",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -88,8 +93,13 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 children: [
                   Text(
-                    'Peluqueros cerca de tu domicilio. Haz clic abajo para ver el más cercano a ti.',
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+                    widget.user.role == "user"
+                        ? "Peluqueros cerca de tu domicilio. Haz clic en el boton buscar para ver el más cercano a ti."
+                        : "Clientes disponibles cerca de tu ubicación. Para iniciar haz clic en el botón publicar.",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 20),
@@ -116,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         color: Colors.white,
                       ),
                       Text(
-                        'Jiron las flores 257 - San Isidro',
+                        'Jiron las flores 257 - Miraflores',
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.white,
@@ -130,7 +140,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       SizedBox(width: 25),
                       Text(
-                        '¿A donde desea el servicio? ',
+                        widget.user.role == "user"
+                            ? " ¿A donde desea el servicio? "
+                            : " ¿Donde desea publicar su servicio? ",
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.white,
@@ -163,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                     ),
                     Text(
-                      "Reservar",
+                      widget.user.role == "user" ? "Reservar" : "Publicar",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,

@@ -66,7 +66,7 @@ class _PedidoScreenState extends State<PedidoScreen> {
         ),
       ),
       body: _cliente.isEmpty
-          ? Center(
+          ? const Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,

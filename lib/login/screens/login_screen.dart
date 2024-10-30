@@ -29,8 +29,10 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
 
     _passwordVisible = true;
-    _emailController.text = "rodnal@gmail.com";
-    _passwordController.text = "12345";
+    //_emailController.text = "rodnal@gmail.com";
+    //_passwordController.text = "12345";
+	_emailController.text = "";
+    _passwordController.text = "";
   }
 
   @override
